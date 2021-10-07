@@ -27,4 +27,11 @@ public class User {
     public User() {
         this.feedbacks = new ArrayList<>();
     }
+
+    public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.feedbacks = new ArrayList<>();
+    }
 }
