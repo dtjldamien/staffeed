@@ -23,7 +23,6 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getUsers() {
-        repository.
         return repository.findAll();
     }
 
