@@ -5,6 +5,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
@@ -17,4 +20,11 @@ public class User {
     private String name;
     private String password;
     private String email;
+
+    @DBRef(lazy=true)
+    private List<Feedback> feedbacks;
+
+    public User() {
+        this.feedbacks = new ArrayList<>();
+    }
 }
