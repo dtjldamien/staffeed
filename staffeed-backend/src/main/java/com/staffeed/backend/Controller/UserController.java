@@ -4,6 +4,8 @@ import com.staffeed.backend.Model.User;
 import com.staffeed.backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +18,8 @@ public class UserController {
     private UserRepository repository;
 
     @PostMapping("/user")
-    public String saveUser(@RequestBody User user) {
-        repository.save(user);
-        return user.getId();
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        return new ResponseEntity<>(repository.save(user), HttpStatus.OK);
     }
 
     @GetMapping("/users")
@@ -31,9 +32,15 @@ public class UserController {
         return repository.findById(id);
     }
 
-    @DeleteMapping("/user")
-    public String deleteUser(@PathVariable String id) {
+    @PutMapping("/user")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User userUpdated = repository.save(user);
+        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         repository.deleteById(id);
-        return id;
+        return new ResponseEntity<>("User with ID:" + id + " was deleted successfully", HttpStatus.OK);
     }
 }
