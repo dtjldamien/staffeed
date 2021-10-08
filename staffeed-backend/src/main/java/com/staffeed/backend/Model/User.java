@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class User {
     @Id
     private String id;
-    private String name;
+    private String username;
     private String password;
     private String email;
 
@@ -36,10 +36,11 @@ public class User {
         this.feedbacks = new ArrayList<>();
     }
 
-    public User(String name, String password, String email) {
-        this.name = name;
+    public User(String username, String password, String email) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.feedbacks = new ArrayList<>();
     }
+
 }
