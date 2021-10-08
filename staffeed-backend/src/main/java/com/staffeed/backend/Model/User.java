@@ -1,5 +1,7 @@
 package com.staffeed.backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,6 +15,12 @@ import java.util.ArrayList;
 @Setter
 @ToString
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Employee.class, name = "employee"),
+})
 @Document(collection = "User")
 public class User {
     @Id
