@@ -41,6 +41,7 @@
 package com.staffeed.backend.Controller;
 
 import com.staffeed.backend.Model.User;
+import com.staffeed.backend.Payload.Response.MessageResponse;
 import com.staffeed.backend.Repository.UserRepository;
 import com.staffeed.backend.Model.Feedback;
 import com.staffeed.backend.Repository.FeedbackRepository;
@@ -50,6 +51,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -62,19 +64,33 @@ public class FeedbackController {
     private UserRepository userRepository;
 
     @RequestMapping(value="/user/{userId}/feedback", method=RequestMethod.POST)
-    public ResponseEntity<User> addFeedbackToUser(@PathVariable String userId, @RequestBody Feedback feedback) {
+    public ResponseEntity<?> addFeedbackToUser(@PathVariable String userId, @RequestBody Map<String, Integer> requestBody) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
 
         User userToUpdate = optionalUser.get();
-        Feedback feedbackCreated = repository.save(feedback);
+
+        // check input feedback
+        if (requestBody.get("response") == null || requestBody.get("response") < 1) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Invalid request body!"));
+        }
+
+        // save feedback
+        Feedback newFeedback = new Feedback(requestBody.get("response"), userToUpdate);
+        Feedback feedbackCreated = repository.save(newFeedback);
+        feedbackCreated.setUser(userToUpdate);
+
+        // update user
         List<Feedback> feedbackList = userToUpdate.getFeedbacks();
         feedbackList.add(feedbackCreated);
         userToUpdate.setFeedbacks(feedbackList);
         User userUpdated = userRepository.save(userToUpdate);
-        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+
+        return ResponseEntity.ok(new MessageResponse("Feedback submitted successfully"));
     }
 
     @GetMapping("/feedbacks")
