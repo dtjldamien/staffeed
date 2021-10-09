@@ -75,7 +75,8 @@ public class AuthController {
                     registerRequest.getEmail(),
                     registerRequest.getDepartment()
             );
-            return new ResponseEntity<>(employeeRepository.save(newEmployee), HttpStatus.OK);
+            employeeRepository.save(newEmployee);
+            return ResponseEntity.ok(new MessageResponse("Employee registered successfully!"));
         }
 
         // Create new user's account
