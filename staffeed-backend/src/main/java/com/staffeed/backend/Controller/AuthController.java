@@ -1,14 +1,17 @@
 package com.staffeed.backend.Controller;
 
+import com.staffeed.backend.Model.Employee;
 import com.staffeed.backend.Model.User;
 import com.staffeed.backend.Payload.Request.LoginRequest;
 import com.staffeed.backend.Payload.Request.RegisterRequest;
 import com.staffeed.backend.Payload.Response.JwtResponse;
 import com.staffeed.backend.Payload.Response.MessageResponse;
+import com.staffeed.backend.Repository.EmployeeRepository;
 import com.staffeed.backend.Repository.UserRepository;
 import com.staffeed.backend.Security.Jwt.JwtUtils;
 import com.staffeed.backend.Security.Services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +29,8 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -62,8 +67,21 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        // Create new Employee account
+        if (registerRequest.getUserType() != null && registerRequest.getUserType().equalsIgnoreCase("employee")) {
+            Employee newEmployee = new Employee(
+                    registerRequest.getUsername(),
+                    encoder.encode(registerRequest.getPassword()),
+                    registerRequest.getEmail(),
+                    registerRequest.getDepartment()
+            );
+            return new ResponseEntity<>(employeeRepository.save(newEmployee), HttpStatus.OK);
+        }
+
         // Create new user's account
-        User user = new User(registerRequest.getUsername(), encoder.encode(registerRequest.getPassword()),
+        User user = new User(
+                registerRequest.getUsername(),
+                encoder.encode(registerRequest.getPassword()),
                 registerRequest.getEmail()
         );
 

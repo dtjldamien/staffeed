@@ -15,8 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Employee extends User {
     private String department;
 
-    public Employee(String name, String password, String email, String department) {
-        super(name, password, email);
+    public Employee(String username, String password, String email, String department) {
+        super(username, password, email);
         this.department = department;
     }
 }
