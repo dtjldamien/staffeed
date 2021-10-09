@@ -67,7 +67,9 @@ public class FeedbackController {
     public ResponseEntity<?> addFeedbackToUser(@PathVariable String userId, @RequestBody Map<String, Integer> requestBody) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Invalid user ID!"));
         }
 
         User userToUpdate = optionalUser.get();
@@ -103,10 +105,20 @@ public class FeedbackController {
         return repository.findById(id);
     }
 
-    @PutMapping("/feedback")
-    public ResponseEntity<Feedback> updateFeedback(@RequestBody Feedback feedback) {
-        Feedback editedFeedback = repository.save(feedback);
-        return new ResponseEntity<>(editedFeedback, HttpStatus.OK);
+    @PutMapping("/feedback/{id}")
+    public ResponseEntity<?> updateFeedback(@PathVariable String id, @RequestBody Map<String, Object> requestObj) {
+        Optional<Feedback> feedbackFromDb = getFeedbackById(id);
+        if (feedbackFromDb.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Invalid feedback ID!"));
+        }
+
+        Feedback feedbackToBeEdited = feedbackFromDb.get();
+        int updatedResponse = (Integer) requestObj.get("response");
+        feedbackToBeEdited.setResponse(updatedResponse);
+        Feedback updatedFeedback = repository.save(feedbackToBeEdited);
+        return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
     }
 
     @DeleteMapping("/feedback/{id}")
