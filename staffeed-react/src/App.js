@@ -1,6 +1,9 @@
-import logo from './logo.svg';
+import React from "react";
 
-function App() {
+import logo from "./logo.svg";
+import { BACKEND_URL } from "@/config";
+
+const App = () => {
   return (
     <div className="bg-green-100">
       <header className="App-header">
@@ -8,17 +11,12 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
       </header>
     </div>
   );
-}
+};
 
 export default App;
