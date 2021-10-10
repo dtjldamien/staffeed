@@ -1,6 +1,6 @@
 import React, { useState, createContext, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { login as loginApi, logout as logoutApi } from "@/lib/api";
 
@@ -15,7 +15,7 @@ const initialContext = {
 export const AuthContext = createContext(initialContext);
 
 export const AuthProvider = ({ children }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,13 +30,13 @@ export const AuthProvider = ({ children }) => {
       .catch((err) => setError(err))
       .finally(() => {
         setLoading(false);
-        history.push("/");
+        navigate("/");
       });
   };
 
   const logout = () => {
     logoutApi();
-    history.push("/");
+    navigate("/");
   };
 
   const memoizedContext = useMemo(
@@ -57,6 +57,8 @@ AuthProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export default useAuth = () => {
+const useAuth = () => {
   return useContext(AuthContext);
 };
+
+export default useAuth;
