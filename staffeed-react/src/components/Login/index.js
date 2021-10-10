@@ -54,8 +54,11 @@ const Login = () => {
           <div className="flex gap-2 flex-col items-center">
             <button
               className="bg-accent-orange-3 hover:bg-accent-orange-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full h-10"
-              type="button"
-              onClick={() => login(cred)}
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                login(cred);
+              }}
               disabled={loading}
             >
               {loading ? <Loader size={2} color="bg-white" /> : "Sign In"}

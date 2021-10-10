@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((err) => setError(err))
       .finally(() => {
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => setLoading(false), 1500);
         navigate("/");
       });
   };
