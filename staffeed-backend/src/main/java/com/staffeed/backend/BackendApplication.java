@@ -11,18 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @SpringBootApplication
 public class BackendApplication {
 
 	@Autowired
+	PasswordEncoder encoder;
+	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	EmployeeRepository employeeRepository;
 	@Autowired
 	FeedbackRepository feedbackRepository;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
@@ -31,15 +34,16 @@ public class BackendApplication {
 	@Bean
 	public InitializingBean sendDatabase() {
 		return () -> {
+			String password = encoder.encode("password");
 			if (employeeRepository.findAll().size() < 1) {
 				// creating employee's account
-				Employee employee1 = new Employee("employee1", "password", "employee1@user.com", "investment");
-				Employee employee2 = new Employee("employee2", "password", "employee2@user.com", "technology");
+				Employee employee1 = new Employee("employee1", password, "employee1@user.com", "investment");
+				Employee employee2 = new Employee("employee2", password, "employee2@user.com", "technology");
 				employeeRepository.save(employee1);
 				employeeRepository.save(employee2);
 
 				// creating HR's account
-				User hr = new User("hr", "password", "hr@user.com");
+				User hr = new User("hr", password, "hr@user.com");
 				userRepository.save(hr);
 
 				// Creating feedbacks
