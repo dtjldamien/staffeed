@@ -31,4 +31,5 @@ export const protectedRoutes = [
       { path: "*", element: <Navigate to="/" /> },
     ],
   },
+  { path: "*", element: <Navigate to="/dashboard" /> },
 ];

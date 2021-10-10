@@ -1,15 +1,14 @@
 import React, { Fragment } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 
-import Auth from "@/lib/Auth";
+import { getJWT } from "@/lib/api";
 import { protectedRoutes } from "./protectedRoutes";
 import { publicRoutes } from "./publicRoutes";
 
 const AppRoutes = () => {
-  const commonRoutes = [{ path: "/", element: <Navigate to="/login" /> }];
-  const routes = Auth.getJWT() ? protectedRoutes : publicRoutes;
+  const routes = getJWT() ? protectedRoutes : publicRoutes;
 
-  const element = useRoutes([...commonRoutes, ...routes]);
+  const element = useRoutes(routes);
   return <Fragment>{element}</Fragment>;
 };
 
