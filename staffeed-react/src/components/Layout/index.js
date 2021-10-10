@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <div className="h-screen w-screen flex items-stretch bg-bg-cover bg-cover">
       <div className="w-1/4 p-10" style={{ minWidth: 280 }}>
-        <div className="bg-gray-50 min-h-full min-w-full rounded-3xl shadow-lg p-3 flex flex-col gap-3">
+        <div className="bg-gray-50 min-h-full min-w-full rounded-3xl shadow-lg p-3 flex flex-col gap-1">
           <SideNavMenu />
         </div>
       </div>
