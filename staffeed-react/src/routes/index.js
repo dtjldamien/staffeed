@@ -6,10 +6,9 @@ import { protectedRoutes } from "./protectedRoutes";
 import { publicRoutes } from "./publicRoutes";
 
 const AppRoutes = () => {
-  const commonRoutes = [{ path: "/", element: <Navigate to="/login" /> }];
   const routes = Auth.getJWT() ? protectedRoutes : publicRoutes;
 
-  const element = useRoutes([...commonRoutes, ...routes]);
+  const element = useRoutes(routes);
   return <Fragment>{element}</Fragment>;
 };
 
