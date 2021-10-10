@@ -1,4 +1,4 @@
-import React, { useState, createContext, useMemo } from "react";
+import React, { useState, createContext, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       })
       .catch((err) => setError(err))
       .finally(() => {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 500);
         navigate("/");
       });
   };
