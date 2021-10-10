@@ -1,11 +1,15 @@
 import React, { Suspense } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
+import Layout from "@/components/Layout";
+
 const Dashboard = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Outlet />
-    </Suspense>
+    <Layout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
+    </Layout>
   );
 };
 

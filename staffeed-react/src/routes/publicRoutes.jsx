@@ -1,9 +1,6 @@
-import React, { Suspense } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react";
 
-const Login = () => {
-  return <div>Login Page</div>;
-};
+import Login from "@/components/Login";
 
 export const publicRoutes = [
   {
