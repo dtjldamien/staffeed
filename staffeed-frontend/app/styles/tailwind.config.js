@@ -15,17 +15,13 @@ module.exports = {
         'accent-orange-2': '#FFD7BA',
         'accent-orange-3': '#FEC89A',
       },
-    },
-  },
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {
       backgroundImage: {
         'bg-cover': 'url(/images/bg.png)',
       },
     },
   },
+  purge: [],
+  darkMode: false, // or 'media' or 'class'
   variants: {
     extend: {},
   },
