@@ -16,9 +16,7 @@ const spare = axios.create({
 // set request interceptor to use access token if exists
 client.interceptors.request.use(
   (config) => {
-    // console.log("req intercepted");
     if (Cookies.get("t1")) {
-      // console.log(Cookies.get("t1"));
       config.headers.Authorization = `Bearer ${Cookies.get("t1")}`;
     }
     return config;

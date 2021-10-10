@@ -1,21 +1,13 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import logo from "./logo.svg";
-import { BACKEND_URL } from "@/config";
+import AppRoutes from "@/routes";
 
 const App = () => {
   return (
-    <div className="bg-green-100">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 };
 
