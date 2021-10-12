@@ -16,5 +16,7 @@ public class Question {
     @Id
     private String id;
     private String title;
-    private int[] options;
+    private String description;
+    private String[] options;
+
 }
