@@ -9,15 +9,16 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
 
-@Document(collection = "Question") public class Question {
+@Document(collection = "Question")
+public class Question {
 
     @Id
     private String id;
@@ -27,13 +28,13 @@ import java.util.List;
     @CreatedBy
     private String createdBy;
     @CreatedDate
-    private LocalDateTime createdDate;
-    private LocalDateTime startDate;
+    private Date createdDate;
+    private Date startDate;
 
     @DBRef(lazy = true)
     private List<Feedback> feedbacks;
 
-    public Question(String title, String description, String[] options, LocalDateTime startDate) {
+    public Question(String title, String description, String[] options, Date startDate) {
         this.title = title;
         this.description = description;
         this.options = options;
