@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,14 +18,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Response {
     @Id
     private String id;
-    private int response;
+    private String response;
+    @CreatedDate
+    private Date submittedOn;
 
     @JsonIgnoreProperties(value = { "responses", "password", "email" })
     private User user;
 
-    public Response(Integer response, User user) {
+    @JsonIgnoreProperties(value = { "responses" })
+    private Question question;
+
+    public Response(String response, User user, Question question) {
         this.response = response;
         this.user = user;
+        this.question = question;
     }
 
 }

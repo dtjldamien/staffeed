@@ -40,8 +40,10 @@
 
 package com.staffeed.backend.Controller;
 
+import com.staffeed.backend.Model.Question;
 import com.staffeed.backend.Model.User;
 import com.staffeed.backend.Payload.Response.MessageResponse;
+import com.staffeed.backend.Repository.QuestionRepository;
 import com.staffeed.backend.Repository.UserRepository;
 import com.staffeed.backend.Model.Response;
 import com.staffeed.backend.Repository.ResponseRepository;
@@ -62,9 +64,11 @@ public class ResponseController {
     private ResponseRepository repository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @RequestMapping(value="/user/{userId}/response", method=RequestMethod.POST)
-    public ResponseEntity<?> addResponseToUser(@PathVariable String userId, @RequestBody Map<String, Integer> requestBody) {
+    public ResponseEntity<?> addResponseToUser(@PathVariable String userId, @RequestBody Map<String, String> requestBody) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             return ResponseEntity
@@ -72,17 +76,32 @@ public class ResponseController {
                     .body(new MessageResponse("Error: Invalid user ID!"));
         }
 
+        // check question id
+        if (requestBody.get("questionId") == null || requestBody.get("questionId").equals("")) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Need to provide question ID!"));
+        }
+
+        Optional<Question> optionalQuestion = questionRepository.findById(requestBody.get("questionId"));
+        if (optionalQuestion.isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Invalid question ID!"));
+        }
+
+        Question questionAnswered = optionalQuestion.get();
         User userToUpdate = optionalUser.get();
 
         // check input response
-        if (requestBody.get("response") == null || requestBody.get("response") < 1) {
+        if (requestBody.get("response") == null || requestBody.get("response").equals("")) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Invalid request body!"));
+                    .body(new MessageResponse("Error: Need to provide response!"));
         }
 
         // save response
-        Response newResponse = new Response(requestBody.get("response"), userToUpdate);
+        Response newResponse = new Response(requestBody.get("response"), userToUpdate, questionAnswered);
         Response responseCreated = repository.save(newResponse);
         responseCreated.setUser(userToUpdate);
 
@@ -91,6 +110,12 @@ public class ResponseController {
         responseList.add(responseCreated);
         userToUpdate.setResponses(responseList);
         User userUpdated = userRepository.save(userToUpdate);
+
+        // update question
+        responseList = questionAnswered.getResponses();
+        responseList.add(responseCreated);
+        questionAnswered.setResponses(responseList);
+        questionRepository.save(questionAnswered);
 
         return ResponseEntity.ok(new MessageResponse("Response submitted successfully"));
     }
@@ -115,7 +140,7 @@ public class ResponseController {
         }
 
         Response responseToBeEdited = responseFromDb.get();
-        int updatedResponse = (Integer) requestObj.get("response");
+        String updatedResponse = (String) requestObj.get("response");
         responseToBeEdited.setResponse(updatedResponse);
         Response updatedFeedback = repository.save(responseToBeEdited);
         return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
