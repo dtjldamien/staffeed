@@ -11,16 +11,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @ToString
 
-@Document(collection = "Feedback")
-public class Feedback {
+@Document(collection = "Response")
+public class Response {
     @Id
     private String id;
     private int response;
 
-    @JsonIgnoreProperties(value = { "feedbacks", "password", "email" })
+    @JsonIgnoreProperties(value = { "responses", "password", "email" })
     private User user;
 
-    public Feedback(Integer response, User user) {
+    public Response(Integer response, User user) {
         this.response = response;
         this.user = user;
     }

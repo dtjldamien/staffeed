@@ -1,7 +1,7 @@
 package com.staffeed.backend;
 
 import com.staffeed.backend.Repository.EmployeeRepository;
-import com.staffeed.backend.Repository.FeedbackRepository;
+import com.staffeed.backend.Repository.ResponseRepository;
 import com.staffeed.backend.Repository.QuestionRepository;
 import com.staffeed.backend.Repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,7 +24,7 @@ public class BackendApplication {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
-    FeedbackRepository feedbackRepository;
+    ResponseRepository responseRepository;
     @Autowired
     QuestionRepository questionRepository;
 

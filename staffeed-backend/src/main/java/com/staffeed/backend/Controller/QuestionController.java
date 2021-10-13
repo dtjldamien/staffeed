@@ -35,8 +35,10 @@ public class QuestionController {
     @PutMapping("/question")
     public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
         Optional<Question> qn = repository.findById(question.getId());
-        question.setCreatedDate(qn.get().getCreatedDate());
-        question.setCreatedBy(qn.get().getCreatedBy());
+        if (qn.isPresent()) {
+            question.setCreatedDate(qn.get().getCreatedDate());
+            question.setCreatedBy(qn.get().getCreatedBy());
+        }
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 

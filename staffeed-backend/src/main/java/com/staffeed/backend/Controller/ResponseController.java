@@ -43,8 +43,8 @@ package com.staffeed.backend.Controller;
 import com.staffeed.backend.Model.User;
 import com.staffeed.backend.Payload.Response.MessageResponse;
 import com.staffeed.backend.Repository.UserRepository;
-import com.staffeed.backend.Model.Feedback;
-import com.staffeed.backend.Repository.FeedbackRepository;
+import com.staffeed.backend.Model.Response;
+import com.staffeed.backend.Repository.ResponseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -56,15 +56,15 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-public class FeedbackController {
+public class ResponseController {
 
     @Autowired
-    private FeedbackRepository repository;
+    private ResponseRepository repository;
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value="/user/{userId}/feedback", method=RequestMethod.POST)
-    public ResponseEntity<?> addFeedbackToUser(@PathVariable String userId, @RequestBody Map<String, Integer> requestBody) {
+    @RequestMapping(value="/user/{userId}/response", method=RequestMethod.POST)
+    public ResponseEntity<?> addResponseToUser(@PathVariable String userId, @RequestBody Map<String, Integer> requestBody) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
             return ResponseEntity
@@ -74,56 +74,56 @@ public class FeedbackController {
 
         User userToUpdate = optionalUser.get();
 
-        // check input feedback
+        // check input response
         if (requestBody.get("response") == null || requestBody.get("response") < 1) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Invalid request body!"));
         }
 
-        // save feedback
-        Feedback newFeedback = new Feedback(requestBody.get("response"), userToUpdate);
-        Feedback feedbackCreated = repository.save(newFeedback);
-        feedbackCreated.setUser(userToUpdate);
+        // save response
+        Response newResponse = new Response(requestBody.get("response"), userToUpdate);
+        Response responseCreated = repository.save(newResponse);
+        responseCreated.setUser(userToUpdate);
 
         // update user
-        List<Feedback> feedbackList = userToUpdate.getFeedbacks();
-        feedbackList.add(feedbackCreated);
-        userToUpdate.setFeedbacks(feedbackList);
+        List<Response> responseList = userToUpdate.getResponses();
+        responseList.add(responseCreated);
+        userToUpdate.setResponses(responseList);
         User userUpdated = userRepository.save(userToUpdate);
 
-        return ResponseEntity.ok(new MessageResponse("Feedback submitted successfully"));
+        return ResponseEntity.ok(new MessageResponse("Response submitted successfully"));
     }
 
-    @GetMapping("/feedbacks")
-    public List<Feedback> getAllFeedbacks() {
+    @GetMapping("/responses")
+    public List<Response> getAllResponses() {
         return repository.findAll();
     }
 
-    @GetMapping("/feedback/{id}")
-    public Optional<Feedback> getFeedbackById(@PathVariable String id) {
+    @GetMapping("/response/{id}")
+    public Optional<Response> getResponseById(@PathVariable String id) {
         return repository.findById(id);
     }
 
-    @PutMapping("/feedback/{id}")
-    public ResponseEntity<?> updateFeedback(@PathVariable String id, @RequestBody Map<String, Object> requestObj) {
-        Optional<Feedback> feedbackFromDb = getFeedbackById(id);
-        if (feedbackFromDb.isEmpty()) {
+    @PutMapping("/response/{id}")
+    public ResponseEntity<?> updateResponse(@PathVariable String id, @RequestBody Map<String, Object> requestObj) {
+        Optional<Response> responseFromDb = getResponseById(id);
+        if (responseFromDb.isEmpty()) {
             return ResponseEntity
                     .badRequest()
-                    .body(new MessageResponse("Error: Invalid feedback ID!"));
+                    .body(new MessageResponse("Error: Invalid response ID!"));
         }
 
-        Feedback feedbackToBeEdited = feedbackFromDb.get();
+        Response responseToBeEdited = responseFromDb.get();
         int updatedResponse = (Integer) requestObj.get("response");
-        feedbackToBeEdited.setResponse(updatedResponse);
-        Feedback updatedFeedback = repository.save(feedbackToBeEdited);
+        responseToBeEdited.setResponse(updatedResponse);
+        Response updatedFeedback = repository.save(responseToBeEdited);
         return new ResponseEntity<>(updatedFeedback, HttpStatus.OK);
     }
 
-    @DeleteMapping("/feedback/{id}")
-    public ResponseEntity<String> deleteFeedback(@PathVariable String id) {
+    @DeleteMapping("/response/{id}")
+    public ResponseEntity<String> deleteResponse(@PathVariable String id) {
         repository.deleteById(id);
-        return new ResponseEntity<>("Feedback with ID :" + id + " deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>("Response with ID :" + id + " deleted successfully", HttpStatus.OK);
     }
 }

@@ -1,9 +1,9 @@
 package com.staffeed.backend.Controller;
 
 import com.staffeed.backend.Model.Employee;
-import com.staffeed.backend.Model.Feedback;
-import com.staffeed.backend.Payload.Response.FeedbackAnalyticsResponse;
-import com.staffeed.backend.Repository.FeedbackRepository;
+import com.staffeed.backend.Model.Response;
+import com.staffeed.backend.Payload.Response.AnalyticsResponse;
+import com.staffeed.backend.Repository.ResponseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,58 +19,58 @@ import java.util.List;
 public class AnalyticsController {
 
     @Autowired
-    private FeedbackRepository feedbackRepository;
+    private ResponseRepository responseRepository;
 
-    @GetMapping("/feedbacks")
-    public ResponseEntity<?> getFeedbackAnalytics(@RequestParam String department) {
-        List<Integer> listOfResponses = feedbackRepository.findAllDistinctResponses();
+    @GetMapping("/responses")
+    public ResponseEntity<?> getResponseAnalytics(@RequestParam String department) {
+        List<Integer> listOfResponses = responseRepository.findAllDistinctResponses();
         Collections.sort(listOfResponses);
 
-        int feedbackSize;
+        int responseSize;
         double percentage;
-        List<FeedbackAnalyticsResponse> analyticsList = new ArrayList<>();
+        List<AnalyticsResponse> analyticsList = new ArrayList<>();
         if (department != null && !department.equals("")) {
-            // get all feedbacks from a department
+            // get all responses from a department
 //            System.out.println("==DEPARTMENT IS " + department + "==");
-            List<Feedback> feedbacksByDepartment = feedbackRepository.findAllFeedbacksByDepartment(department);
-            feedbackSize = feedbacksByDepartment.size();
+            List<Response> responsesByDepartment = responseRepository.findAllResponsesByDepartment(department);
+            responseSize = responsesByDepartment.size();
             for (Integer response : listOfResponses) {
-                long numOfOccurrences = feedbacksByDepartment
+                long numOfOccurrences = responsesByDepartment
                                             .stream()
-                                            .filter(feedback -> feedback.getResponse() == response)
-                                            .filter(feedback -> {
-                                                if (feedback.getUser() instanceof Employee employee) {
+                                            .filter(res -> res.getResponse() == response)
+                                            .filter(res -> {
+                                                if (res.getUser() instanceof Employee employee) {
                                                     return employee.getDepartment().equals(department);
                                                 }
                                                 return false;
                                             })
                                             .count();
 
-                if (feedbackSize > 0) {
-                    percentage = (double) numOfOccurrences / (double) feedbackSize;
+                if (responseSize > 0) {
+                    percentage = (double) numOfOccurrences / (double) responseSize;
                 } else {
                     percentage = 0.0;
                 }
 
-                FeedbackAnalyticsResponse feedbackAnalyticsResponse = new FeedbackAnalyticsResponse(response, percentage);
-                analyticsList.add(feedbackAnalyticsResponse);
+                AnalyticsResponse analyticsResponse = new AnalyticsResponse(response, percentage);
+                analyticsList.add(analyticsResponse);
             }
         } else {
-            // get all feedbacks
+            // get all responses
 //            System.out.println("==NO DEPARTMENT==");
-            List<Feedback> feedbacks = feedbackRepository.findAll();
-            feedbackSize = feedbacks.size();
+            List<Response> responses = responseRepository.findAll();
+            responseSize = responses.size();
             for (Integer response : listOfResponses) {
-                long numOfOccurrences = feedbacks.stream().filter(feedback -> feedback.getResponse() == response).count();
+                long numOfOccurrences = responses.stream().filter(res -> res.getResponse() == response).count();
 
-                if (feedbackSize > 0) {
-                    percentage = (double) numOfOccurrences / (double) feedbackSize;
+                if (responseSize > 0) {
+                    percentage = (double) numOfOccurrences / (double) responseSize;
                 } else {
                     percentage = 0.0;
                 }
 
-                FeedbackAnalyticsResponse feedbackAnalyticsResponse = new FeedbackAnalyticsResponse(response, percentage);
-                analyticsList.add(feedbackAnalyticsResponse);
+                AnalyticsResponse analyticsResponse = new AnalyticsResponse(response, percentage);
+                analyticsList.add(analyticsResponse);
             }
         }
 

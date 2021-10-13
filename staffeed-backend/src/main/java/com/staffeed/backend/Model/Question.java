@@ -32,13 +32,13 @@ public class Question {
     private Date startDate;
 
     @DBRef(lazy = true)
-    private List<Feedback> feedbacks;
+    private List<Response> responses;
 
     public Question(String title, String description, String[] options, Date startDate) {
         this.title = title;
         this.description = description;
         this.options = options;
         this.startDate = startDate;
-        this.feedbacks = new ArrayList<>();
+        this.responses = new ArrayList<>();
     }
 }
