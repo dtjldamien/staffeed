@@ -23,6 +23,19 @@ module.exports = function (environment) {
     },
   };
 
+  // JSON Web Token Authenticator
+  ENV['ember-simple-auth-token'] = {
+    tokenDataPropertyName: 'tokenData', // Key in session to store token data
+    refreshAccessTokens: true, // Enables access token refreshing
+    tokenExpirationInvalidateSession: true, // Enables session invalidation on token expiration
+    serverTokenRefreshEndpoint: 'http://localhost:8080/auth/login', // Server endpoint to send refresh request
+    refreshTokenPropertyName: 'refresh_token', // Key in server response that contains the refresh token
+    tokenExpireName: 'exp', // Field containing token expiration
+    refreshLeeway: 300, // Amount of time to send refresh request before token expiration
+    authorizationHeaderName: 'Authorization', // Header name added to each API request
+    authorizationPrefix: 'Bearer ', // Prefix added to each API request  
+    };
+  
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
