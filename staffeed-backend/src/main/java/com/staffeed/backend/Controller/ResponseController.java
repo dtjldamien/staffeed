@@ -83,23 +83,31 @@ public class ResponseController {
     }
 
     @GetMapping("/responses")
-    public ResponseEntity<?> getAllResponses(@RequestParam(required = false) Integer minutes) {
+    public ResponseEntity<?> getAllResponses(@RequestParam(required = false) Integer minutes, @RequestParam(required = false) String questionId) {
         if (minutes != null && minutes < 0) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Minutes cannot be negative!"));
         } else {
+            List<Response> listOfResponses = repository.getAllResponsesByLatest();
             if (minutes != null) {
-                List<Response> listOfResponses = repository.getAllResponsesByLatest()
-                                                    .stream()
-                                                    .filter(response -> {
-                                                       Date dateToBeCompared = new Date(System.currentTimeMillis() - (60 * minutes) * 1000);
-                                                       return response.getSubmittedOn().after(dateToBeCompared);
-                                                    })
-                                                    .collect(Collectors.toList());
-                return new ResponseEntity<>(listOfResponses, HttpStatus.OK);
+                listOfResponses = listOfResponses
+                                    .stream()
+                                    .filter(response -> {
+                                       Date dateToBeCompared = new Date(System.currentTimeMillis() - (60 * minutes) * 1000);
+                                       return response.getSubmittedOn().after(dateToBeCompared);
+                                    })
+                                    .collect(Collectors.toList());
             }
-            return new ResponseEntity<>(repository.getAllResponsesByLatest(), HttpStatus.OK);
+
+            if (questionId != null && !questionId.equals("")) {
+                listOfResponses = listOfResponses
+                                    .stream()
+                                    .filter(response -> response.getQuestion().getId().equals(questionId))
+                                    .collect(Collectors.toList());
+            }
+
+            return new ResponseEntity<>(listOfResponses, HttpStatus.OK);
         }
 
     }
