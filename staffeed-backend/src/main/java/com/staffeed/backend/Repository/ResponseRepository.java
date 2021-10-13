@@ -14,4 +14,7 @@ public interface ResponseRepository extends MongoRepository<Response, String> {
 
     @Query(value = "{ 'user.department' : ?0 }")
     List<Response> findAllResponsesByDepartment(String department);
+
+    @Aggregation(pipeline = { "{ '$sort' : { 'submittedOn' : -1 } }" })
+    List<Response> getAllResponsesByLatest();
 }
