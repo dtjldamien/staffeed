@@ -22,8 +22,8 @@ public class QuestionController {
         return new ResponseEntity<>(repository.save(question), HttpStatus.OK);
     }
 
-    @GetMapping("/question")
-    public List<Question> getUsers() {
+    @GetMapping("/questions")
+    public List<Question> getQuestions() {
         return repository.findAll();
     }
 
