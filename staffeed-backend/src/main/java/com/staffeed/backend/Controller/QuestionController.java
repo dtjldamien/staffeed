@@ -34,8 +34,10 @@ public class QuestionController {
 
     @PutMapping("/question")
     public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
-        Question updatedQuestion = repository.save(question);
-        return new ResponseEntity<>(updatedQuestion, HttpStatus.OK);
+        Optional<Question> qn = repository.findById(question.getId());
+        question.setCreatedDate(qn.get().getCreatedDate());
+        question.setCreatedBy(qn.get().getCreatedBy());
+        return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
     @DeleteMapping("/question/{id}")
