@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -81,8 +83,25 @@ public class ResponseController {
     }
 
     @GetMapping("/responses")
-    public List<Response> getAllResponses(@RequestParam(required = false) Integer minutes) {
-        return repository.getAllResponsesByLatest();
+    public ResponseEntity<?> getAllResponses(@RequestParam(required = false) Integer minutes) {
+        if (minutes != null && minutes < 0) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Minutes cannot be negative!"));
+        } else {
+            if (minutes != null) {
+                List<Response> listOfResponses = repository.getAllResponsesByLatest()
+                                                    .stream()
+                                                    .filter(response -> {
+                                                       Date dateToBeCompared = new Date(System.currentTimeMillis() - (60 * minutes) * 1000);
+                                                       return response.getSubmittedOn().after(dateToBeCompared);
+                                                    })
+                                                    .collect(Collectors.toList());
+                return new ResponseEntity<>(listOfResponses, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(repository.getAllResponsesByLatest(), HttpStatus.OK);
+        }
+
     }
 
     @GetMapping("/response/{id}")
