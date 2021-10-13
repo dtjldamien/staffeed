@@ -1,6 +1,5 @@
 package com.staffeed.backend;
 
-import com.staffeed.backend.Model.Question;
 import com.staffeed.backend.Repository.EmployeeRepository;
 import com.staffeed.backend.Repository.FeedbackRepository;
 import com.staffeed.backend.Repository.QuestionRepository;
@@ -12,8 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDateTime;
 
 
 @SpringBootApplication
@@ -38,28 +35,28 @@ public class BackendApplication {
     @Bean public InitializingBean sendDatabase() {
         return () -> {
             String password = encoder.encode("password");
-            if (questionRepository.findAll().size() < 1) {
-                Question question1 =
-                        new Question("Question 1", "How are you feeling today?", new String[]{"1", "2", "3"},
-                                LocalDateTime.now());
-                Question question2 =
-                        new Question("Question 2", "Is the meeting productive just now?", new String[]{"1", "2", "3"}
-                                , LocalDateTime.now());
-                Question question3 =
-                        new Question("Question 3", "Are you stressed at work?", new String[]{"1", "2", "3"},
-                                LocalDateTime.now());
-                Question question4 =
-                        new Question("Question 4", "I have other things in mind", new String[]{"1", "2", "3"},
-                                LocalDateTime.now());
-                Question question5 = new Question("Question 5", "I am overworked",
-                        new String[]{"Strongly Agree", "Agree", "Neutral", "Disagree", "String Disagree"},
-                        LocalDateTime.now());
-                questionRepository.save(question1);
-                questionRepository.save(question2);
-                questionRepository.save(question3);
-                questionRepository.save(question4);
-                questionRepository.save(question5);
-            }
+//            if (questionRepository.findAll().size() < 1) {
+//                Question question1 =
+//                        new Question("Question 1", "How are you feeling today?", new String[]{"1", "2", "3"},
+//                                LocalDateTime.now());
+//                Question question2 =
+//                        new Question("Question 2", "Is the meeting productive just now?", new String[]{"1", "2", "3"}
+//                                , LocalDateTime.now());
+//                Question question3 =
+//                        new Question("Question 3", "Are you stressed at work?", new String[]{"1", "2", "3"},
+//                                LocalDateTime.now());
+//                Question question4 =
+//                        new Question("Question 4", "I have other things in mind", new String[]{"1", "2", "3"},
+//                                LocalDateTime.now());
+//                Question question5 = new Question("Question 5", "I am overworked",
+//                        new String[]{"Strongly Agree", "Agree", "Neutral", "Disagree", "String Disagree"},
+//                        LocalDateTime.now());
+//                questionRepository.save(question1);
+//                questionRepository.save(question2);
+//                questionRepository.save(question3);
+//                questionRepository.save(question4);
+//                questionRepository.save(question5);
+//            }
 
 //			if (employeeRepository.findAll().size() < 1) {
 //				// creating employee's account
