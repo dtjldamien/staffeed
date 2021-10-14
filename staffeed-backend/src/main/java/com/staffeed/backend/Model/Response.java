@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Getter
@@ -19,6 +20,7 @@ public class Response {
     @Id
     private String id;
     private String response;
+    private Integer choiceNum;
     @CreatedDate
     private Date submittedOn;
 
@@ -32,6 +34,7 @@ public class Response {
         this.response = response;
         this.user = user;
         this.question = question;
+        this.choiceNum = Arrays.asList(question.getOptions()).indexOf(response) + 1;
     }
 
 }

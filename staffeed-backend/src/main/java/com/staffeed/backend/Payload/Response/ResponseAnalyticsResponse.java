@@ -8,11 +8,13 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class AnalyticsResponse {
-    private int response;
+public class ResponseAnalyticsResponse {
+    private Integer choiceNum;
+    private String response;
     private double percentage;
 
-    public AnalyticsResponse(int response, double percentage) {
+    public ResponseAnalyticsResponse(Integer choiceNum, String response, double percentage) {
+        this.choiceNum = choiceNum;
         this.response = response;
         this.percentage = percentage;
     }
