@@ -15,16 +15,16 @@ import java.util.List;
 @ToString
 
 public class QuestionAnalyticsResponse {
-    @JsonIgnoreProperties(value = { "responses" })
+    @JsonIgnoreProperties(value = { "responses", "createdBy", "createdDate", "startDate", "options" })
     private Question question;
     private double average;
 
     @DBRef(lazy = true)
-    private List<ResponseAnalyticsResponse> responseAnalyticsResponseList;
+    private List<ResponseAnalyticsResponse> responses;
 
     public QuestionAnalyticsResponse(Question question, double average, List<ResponseAnalyticsResponse> list) {
         this.question = question;
         this.average = average;
-        this.responseAnalyticsResponseList = list;
+        this.responses = list;
     }
 }
