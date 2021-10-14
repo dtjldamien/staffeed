@@ -1,7 +1,6 @@
 package com.staffeed.backend;
 
-import com.staffeed.backend.Model.Categories;
-import com.staffeed.backend.Model.Question;
+import com.staffeed.backend.Model.Category;
 import com.staffeed.backend.Repository.EmployeeRepository;
 import com.staffeed.backend.Repository.ResponseRepository;
 import com.staffeed.backend.Repository.QuestionRepository;
@@ -13,8 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Date;
 
 
 @SpringBootApplication
@@ -39,28 +36,28 @@ public class BackendApplication {
     @Bean public InitializingBean sendDatabase() {
         return () -> {
             String password = encoder.encode("password");
-            if (questionRepository.findAll().size() < 1) {
-                Question question1 =
-                        new Question("Question 1", "How are you feeling today?", new String[]{"1", "2", "3"},
-                                new Date(), Categories.FINANCIAL);
-                Question question2 =
-                        new Question("Question 2", "Is the meeting productive just now?", new String[]{"1", "2", "3"}
-                                , new Date(), Categories.HEALTH);
-                Question question3 =
-                        new Question("Question 3", "Are you stressed at work?", new String[]{"1", "2", "3"},
-                                new Date(), Categories.MOOD);
-                Question question4 =
-                        new Question("Question 4", "I have other things in mind", new String[]{"1", "2", "3"},
-                                new Date(), Categories.MOTIVATION);
-                Question question5 = new Question("Question 5", "I am overworked",
-                        new String[]{"Strongly Agree", "Agree", "Neutral", "Disagree", "String Disagree"},
-                        new Date(), Categories.STRESS);
-                questionRepository.save(question1);
-                questionRepository.save(question2);
-                questionRepository.save(question3);
-                questionRepository.save(question4);
-                questionRepository.save(question5);
-            }
+//            if (questionRepository.findAll().size() < 1) {
+//                Question question1 =
+//                        new Question("Question 1", "How are you feeling today?", new String[]{"1", "2", "3"},
+//                                new Date(), Category.FINANCIAL);
+//                Question question2 =
+//                        new Question("Question 2", "Is the meeting productive just now?", new String[]{"1", "2", "3"}
+//                                , new Date(), Category.HEALTH);
+//                Question question3 =
+//                        new Question("Question 3", "Are you stressed at work?", new String[]{"1", "2", "3"},
+//                                new Date(), Category.MOOD);
+//                Question question4 =
+//                        new Question("Question 4", "I have other things in mind", new String[]{"1", "2", "3"},
+//                                new Date(), Category.MOTIVATION);
+//                Question question5 = new Question("Question 5", "I am overworked",
+//                        new String[]{"Strongly Agree", "Agree", "Neutral", "Disagree", "String Disagree"},
+//                        new Date(), Category.STRESS);
+//                questionRepository.save(question1);
+//                questionRepository.save(question2);
+//                questionRepository.save(question3);
+//                questionRepository.save(question4);
+//                questionRepository.save(question5);
+//            }
 
 //			if (employeeRepository.findAll().size() < 1) {
 //				// creating employee's account

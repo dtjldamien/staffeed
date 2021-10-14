@@ -34,14 +34,14 @@ public class Question {
     @DBRef(lazy = true)
     private List<Response> responses;
 
-    private Categories categories;
+    private Category category;
 
-    public Question(String title, String description, String[] options, Date startDate, Categories categories) {
+    public Question(String title, String description, String[] options, Date startDate, Category category) {
         this.title = title;
         this.description = description;
         this.options = options;
         this.startDate = startDate;
         this.responses = new ArrayList<>();
-        this.categories = categories; 
+        this.category = category;
     }
 }

@@ -1,6 +1,6 @@
 package com.staffeed.backend.Model;
 
-public enum Categories {
+public enum Category {
     STRESS,
     SATISFACTION,
     MOOD,
