@@ -6,6 +6,9 @@ import { computed } from '@ember/object';
 export default DS.JSONAPIAdapter.extend({
   session: inject('session'),
 
+  namespace: 'api',
+  host: 'http://localhost:8080',
+
   headers: computed('session.isAuthenticated', 'session.data.authenticated.token', function() {
     if (this.session.isAuthenticated) {
       return {
