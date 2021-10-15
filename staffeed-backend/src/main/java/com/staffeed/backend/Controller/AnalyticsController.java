@@ -3,7 +3,7 @@ package com.staffeed.backend.Controller;
 import com.staffeed.backend.Model.Category;
 import com.staffeed.backend.Model.Employee;
 import com.staffeed.backend.Model.Question;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsDepartmentCategory;
+import com.staffeed.backend.Payload.Response.QuestionAnalyticsCategoryResponse;
 import com.staffeed.backend.Payload.Response.QuestionAnalyticsDepartmentResponse;
 import com.staffeed.backend.Payload.Response.QuestionAnalyticsResponse;
 import com.staffeed.backend.Payload.Response.ResponseAnalyticsResponse;
@@ -135,7 +135,7 @@ public class AnalyticsController {
 //        Collections.sort(listOfDepartments);
         System.out.println(listOfCategories);
 
-        List<QuestionAnalyticsDepartmentCategory> list = new ArrayList<>();
+        List<QuestionAnalyticsCategoryResponse> list = new ArrayList<>();
 //        for (String category : listOfCategories) {
 //            double average = 0.0;
 //            double percentage;

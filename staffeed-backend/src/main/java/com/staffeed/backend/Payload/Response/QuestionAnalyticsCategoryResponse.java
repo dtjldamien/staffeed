@@ -11,13 +11,13 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class QuestionAnalyticsDepartmentCategory {
+public class QuestionAnalyticsCategoryResponse {
     private Category category;
 
     @DBRef(lazy = true)
     private List<QuestionAnalyticsResponse> questions;
 
-    public QuestionAnalyticsDepartmentCategory(Category category, List<QuestionAnalyticsResponse> questions) {
+    public QuestionAnalyticsCategoryResponse(Category category, List<QuestionAnalyticsResponse> questions) {
         this.category = category;
         this.questions = questions;
     }
