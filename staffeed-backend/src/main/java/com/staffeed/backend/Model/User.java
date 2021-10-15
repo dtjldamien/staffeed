@@ -30,17 +30,17 @@ public class User {
     private String email;
 
     @DBRef(lazy=true)
-    private List<Feedback> feedbacks;
+    private List<Response> responses;
 
     public User() {
-        this.feedbacks = new ArrayList<>();
+        this.responses = new ArrayList<>();
     }
 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.feedbacks = new ArrayList<>();
+        this.responses = new ArrayList<>();
     }
 
 }
