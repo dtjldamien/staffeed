@@ -1,16 +1,17 @@
-// app/controllers/login.js
-import Controller from '@ember/controller';
-import { inject } from '@ember/service';
-
-export default Controller.extend({
-  session: inject('session'),
+export default Ember.Component.extend({
+  authManager: Ember.inject.service(),
 
   actions: {
-    authenticate: function() {
-      const credentials = this.getProperties('username', 'password');
-      const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
-
-      this.session.authenticate(authenticator, credentials);
-    }
-  }
+    authenticate() {
+      const { login, password } = this.getProperties('login', 'password');
+      this.authManager.authenticate(login, password).then(
+        () => {
+          alert('Success! Click the top link!');
+        },
+        (err) => {
+          alert('Error obtaining token: ' + err.responseText);
+        }
+      );
+    },
+  },
 });
