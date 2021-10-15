@@ -1,17 +1,23 @@
-export default Ember.Component.extend({
-  authManager: Ember.inject.service(),
+import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
-  actions: {
-    authenticate() {
-      const { login, password } = this.getProperties('login', 'password');
-      this.authManager.authenticate(login, password).then(
-        () => {
-          alert('Success! Click the top link!');
-        },
-        (err) => {
-          alert('Error obtaining token: ' + err.responseText);
-        }
-      );
-    },
-  },
-});
+export default class LoginController extends Controller {
+  @service('auth-manager') authManager;
+
+  @tracked username = '';
+  @tracked password = '';
+
+  @action
+  authenticate() {
+    this.authManager.authenticate(this.username, this.password).then(
+      () => {
+        alert('Success! Click the top link!');
+      },
+      (err) => {
+        alert('Error obtaining token: ' + err.responseText);
+      }
+    );
+  }
+}

@@ -1,5 +1,7 @@
-export default Ember.Service.extend({
-  accessToken: null,
+import Service from '@ember/service';
+
+export default class AuthManagerService extends Service {
+  accessToken = null;
 
   authenticate(login, password) {
     let userData = {
@@ -18,11 +20,11 @@ export default Ember.Service.extend({
         this.set('accessToken', result.access_token);
       }
     );
-  },
+  }
 
   invalidate() {
     this.set('accessToken', null);
-  },
+  }
 
-  isAuthenticated: Ember.computed.bool('accessToken'),
-});
+  isAuthenticated = Ember.computed.bool('accessToken');
+}

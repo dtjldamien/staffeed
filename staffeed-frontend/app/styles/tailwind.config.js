@@ -16,7 +16,7 @@ module.exports = {
         'accent-orange-3': '#FEC89A',
       },
       backgroundImage: {
-        'bg-cover': 'url(/images/bg.png)',
+        'bg-cover': "url('../../public/images/bg.png')",
       },
     },
   },
