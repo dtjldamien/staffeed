@@ -128,8 +128,6 @@ public class AnalyticsController {
 
     @GetMapping("/responses/categories")
     public ResponseEntity<?> getResponseAnalyticsByCategories() {
-        List<Question> listOfQuestions = questionRepository.findByCategory(Category.FINANCIAL);
-        System.out.println(listOfQuestions);
         List<String> listOfCategories = Stream.of(Category.values())
                 .map(Category::name)
                 .collect(Collectors.toList());
@@ -142,6 +140,7 @@ public class AnalyticsController {
             double percentage;
             List<QuestionAnalyticsResponse> questionAnalyticsResponseList = new ArrayList<>();
 
+            List<Question> listOfQuestions = questionRepository.findByCategory(Category.valueOf(category));
             for (Question q : listOfQuestions) {
                 average = 0.0;
                 List<ResponseAnalyticsResponse> responseAnalyticsList = new ArrayList<>();
@@ -152,12 +151,6 @@ public class AnalyticsController {
                     int choiceNum = listOfChoices.indexOf(choice) + 1;
                     long numResponses = q.getResponses()
                             .stream()
-                            .filter(res -> {
-                                if (res.getUser() instanceof Employee employee) {
-                                    return employee.getDepartment().equals(category);
-                                }
-                                return false;
-                            })
                             .filter(response -> response.getResponse().equals(choice)).count();
 
                     if (totalNumResponses > 0) {
