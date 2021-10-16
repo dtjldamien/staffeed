@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 
 public class QuestionAnalyticsResponse {
-    @JsonIgnoreProperties(value = { "responses", "createdBy", "createdDate", "startDate", "options" })
+    @JsonIgnoreProperties(value = { "responses", "createdBy", "createdDate", "options" })
     private Question question;
     private double average;
 

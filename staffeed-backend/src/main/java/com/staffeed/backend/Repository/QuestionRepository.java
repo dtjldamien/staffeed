@@ -10,9 +10,10 @@ import java.util.List;
 
 public interface QuestionRepository extends MongoRepository<Question, String> {
 
-    @Aggregation(pipeline = { "{ '$sort' : { 'createdDate' : -1 } }" })
+    @Aggregation(pipeline = { "{ '$sort' : { 'startDate' : -1 } }" })
     List<Question> getAllQuestionsByLatest();
 
+    @Query(value = "{ 'category' : ?0 }", sort = "{ 'startDate': -1 }")
     List<Question> findByCategory(Category category);
 
 }
