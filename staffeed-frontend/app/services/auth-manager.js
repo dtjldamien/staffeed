@@ -1,13 +1,14 @@
 import Service from '@ember/service';
-
+import axios from 'axios';
 export default class AuthManagerService extends Service {
   accessToken = null;
 
-  authenticate(login, password) {
+  async authenticate(username, password) {
     let userData = {
-      login: this.login,
-      password: this.password,
+      username: username,
+      password: password,
     };
+
     let fetchObject = {
       method: 'POST',
       headers: {
@@ -15,11 +16,23 @@ export default class AuthManagerService extends Service {
       },
       body: JSON.stringify(userData),
     };
-    fetch('https://gara6.bg/auto-api/users/login', fetchObject).then(
-      (result) => {
-        this.set('accessToken', result.access_token);
-      }
+    // fetch('https://gara6.bg/auto-api/users/login', fetchObject).then(
+    //   (result) => {
+    //     this.set('accessToken', result.access_token);
+    //   }
+    // );
+    const response = await fetch(
+      'http://localhost:8080/auth/login',
+      fetchObject
     );
+    const data = await response.json();
+    console.log(data);
+    this.set('accessToken', data.token);
+
+    // axios.post('http://localhost:8080/auth/login', userData).then((res) => {
+    //   console.log(res.data);
+    //   this.set('accessToken', res.data.token);
+    // });
   }
 
   invalidate() {
