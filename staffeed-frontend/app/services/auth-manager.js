@@ -3,10 +3,10 @@ import Service from '@ember/service';
 export default class AuthManagerService extends Service {
   accessToken = null;
 
-  authenticate(login, password) {
+  authenticate(username, password) {
     let userData = {
-      login: this.login,
-      password: this.password,
+      username: username,
+      password: password,
     };
     let fetchObject = {
       method: 'POST',
