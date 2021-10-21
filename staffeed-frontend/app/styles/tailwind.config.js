@@ -14,6 +14,7 @@ module.exports = {
         'accent-orange-1': '#FFE5D9',
         'accent-orange-2': '#FFD7BA',
         'accent-orange-3': '#FEC89A',
+        'accent-orange-4': '#ffa352',
       },
       backgroundImage: {
         'bg-cover': 'url(/images/bg.png)',
