@@ -1,6 +1,42 @@
 <LinkTo
   @route='index'
-  @activeClass='bg-black'
-  class='button hover:cursor-pointer'
->Home</LinkTo>
-<LinkTo @route='login' @activeClass='bg-grey' class='button'>Login</LinkTo>
+  @activeClass='bg-accent-red-4 my-2 ml-3 rounded-l-2xl text-accent-orange-4'
+  class='flex items-center justify-center gap-3 p-1 text-gray-700 text-xl hover:cursor-pointer hover:bg-accent-red-4'
+><svg
+    xmlns='http://www.w3.org/2000/svg'
+    class='h-5 w-5'
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      stroke-width='2'
+      d='M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'
+    ></path>
+  </svg>
+  Overview
+</LinkTo>
+
+<LinkTo
+  @route='login'
+  @activeClass='bg-accent-red-4 my-2 ml-3 rounded-l-2xl text-accent-orange-4'
+  class='flex items-center justify-center gap-3 p-1 text-gray-700 text-xl hover:cursor-pointer hover:bg-accent-red-4'
+>
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    class='h-5 w-5'
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth='{2}'
+      d='M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z'
+    ></path>
+  </svg>
+  Wellness
+</LinkTo>
