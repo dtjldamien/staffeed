@@ -12,8 +12,8 @@ module.exports = function (defaults) {
       compile: {
         plugins: [
           // { module: require('postcss-import') }, // If you installed postcss-import
-          require('tailwindcss'),
-          require('./app/styles/tailwind.config.js'), // If you have a Tailwind config file.
+          // require('tailwindcss'),
+          require('tailwindcss')('./app/styles/tailwind.config.js'), // If you have a Tailwind config file.
         ],
       },
     },
