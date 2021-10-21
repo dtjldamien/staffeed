@@ -6,7 +6,7 @@ module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     // Add options here
     minifyCSS: {
-      options: { processImport: true }
+      options: { processImport: true },
     },
     postcssOptions: {
       compile: {
@@ -14,9 +14,9 @@ module.exports = function (defaults) {
           // { module: require('postcss-import') }, // If you installed postcss-import
           require('tailwindcss'),
           require('./app/styles/tailwind.config.js'), // If you have a Tailwind config file.
-        ]
-      }
-    }
+        ],
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
