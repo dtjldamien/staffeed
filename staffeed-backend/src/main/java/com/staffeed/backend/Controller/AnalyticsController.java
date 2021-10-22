@@ -136,13 +136,14 @@ public class AnalyticsController {
 
         List<QuestionAnalyticsCategoryResponse> list = new ArrayList<>();
         for (String category : listOfCategories) {
-            double average = 0.0;
+            double categoryAverage = 0.0;
+            double categoryTotal = 0.0;
             double percentage;
             List<QuestionAnalyticsResponse> questionAnalyticsResponseList = new ArrayList<>();
 
             List<Question> listOfQuestions = questionRepository.findByCategory(Category.valueOf(category));
             for (Question q : listOfQuestions) {
-                average = 0.0;
+                double questionAverage = 0.0;
                 List<ResponseAnalyticsResponse> responseAnalyticsList = new ArrayList<>();
                 List<String> listOfChoices = Arrays.asList(q.getOptions());
 
@@ -159,17 +160,24 @@ public class AnalyticsController {
                         percentage = 0.0;
                     }
 
-                    average += (percentage * choiceNum);
+                    questionAverage += (percentage * choiceNum);
                     ResponseAnalyticsResponse responseAnalyticsResponse = new ResponseAnalyticsResponse(choiceNum, choice, percentage);
                     responseAnalyticsList.add(responseAnalyticsResponse);
                 }
-
-                QuestionAnalyticsResponse questionAnalyticsResponse = new QuestionAnalyticsResponse(q, average, responseAnalyticsList);
+                categoryTotal += questionAverage;
+                QuestionAnalyticsResponse questionAnalyticsResponse = new QuestionAnalyticsResponse(q, questionAverage, responseAnalyticsList);
                 questionAnalyticsResponseList.add(questionAnalyticsResponse);
             }
 
-            QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), questionAnalyticsResponseList);
-            list.add(obj);
+            if (listOfQuestions.size() > 0) {
+                categoryAverage = categoryTotal / listOfQuestions.size();
+                QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), categoryAverage, questionAnalyticsResponseList);
+                list.add(obj);
+            } else {
+                QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), questionAnalyticsResponseList);
+                list.add(obj);
+            }
+
         }
 
         return new ResponseEntity<>(list, HttpStatus.OK);
