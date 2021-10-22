@@ -23,7 +23,7 @@ jobs:
         run: npm ci
         working-directory: ./staffeed-frontend
       - name: linting
-        run: npm lint
+        run: npm run lint
         working-directory: ./staffeed-frontend
 
   ember-test:
@@ -38,7 +38,7 @@ jobs:
         run: npm ci
         working-directory: ./staffeed-frontend
       - name: build
-        run: npm test:ember
+        run: npm run test:ember
         working-directory: ./staffeed-frontend
 
   build-test:
@@ -54,5 +54,5 @@ jobs:
         run: npm ci
         working-directory: ./staffeed-frontend
       - name: build
-        run: npm build
+        run: npm run build
         working-directory: ./staffeed-frontend
