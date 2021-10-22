@@ -21,8 +21,10 @@ jobs:
           node-version: 10.x
       - name: install dependencies
         run: npm ci
+        working-directory: ./staffeed-frontend
       - name: linting
         run: npm lint
+        working-directory: ./staffeed-frontend
 
   ember-test:
     name: Run Ember Testcases
@@ -34,8 +36,10 @@ jobs:
           node-version: 10.x
       - name: install dependencies
         run: npm ci
+        working-directory: ./staffeed-frontend
       - name: build
         run: npm test:ember
+        working-directory: ./staffeed-frontend
 
   build-test:
     name: Test Production Build
@@ -48,5 +52,7 @@ jobs:
           node-version: 10.x
       - name: install dependencies
         run: npm ci
+        working-directory: ./staffeed-frontend
       - name: build
         run: npm build
+        working-directory: ./staffeed-frontend
