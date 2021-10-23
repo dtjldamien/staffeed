@@ -3,10 +3,8 @@ package com.staffeed.backend.Controller;
 import com.staffeed.backend.Model.Category;
 import com.staffeed.backend.Model.Employee;
 import com.staffeed.backend.Model.Question;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsCategoryResponse;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsDepartmentResponse;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsResponse;
-import com.staffeed.backend.Payload.Response.ResponseAnalyticsResponse;
+import com.staffeed.backend.Model.Response;
+import com.staffeed.backend.Payload.Response.*;
 import com.staffeed.backend.Repository.QuestionRepository;
 import com.staffeed.backend.Repository.ResponseRepository;
 import com.staffeed.backend.Repository.UserRepository;
@@ -38,8 +36,8 @@ public class AnalyticsController {
     public ResponseEntity<?> getResponseAnalytics() {
         List<Question> listOfQuestions = questionRepository.getAllQuestionsByLatest();
         System.out.println(listOfQuestions);
-        List<Integer> listOfResponses = responseRepository.findAllDistinctResponses();
-        Collections.sort(listOfResponses);
+//        List<Integer> listOfResponses = responseRepository.findAllDistinctResponses();
+//        Collections.sort(listOfResponses);
 
         double average = 0.0;
         double percentage;
@@ -181,5 +179,22 @@ public class AnalyticsController {
         }
 
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/response-rate")
+    public ResponseEntity<?> getResponseRate() {
+        List<Question> listOfQuestions = questionRepository.findAll();
+        long totalNumEmployees = userRepository.findAll().stream().filter(user -> user instanceof Employee).count();
+
+        List<QuestionResponseRateResponse> questionResponseRateResponseList = new ArrayList<>();
+        for (Question q : listOfQuestions) {
+            int responseListSize = responseRepository.findResponsesWithDistinctRespondents(q.getId()).size();
+            double responseRate = (double) responseListSize / (double) totalNumEmployees;
+            QuestionResponseRateResponse obj = new QuestionResponseRateResponse(responseRate, q);
+            questionResponseRateResponseList.add(obj);
+        }
+
+        OverallResponseRateResponse resObj = new OverallResponseRateResponse((int) totalNumEmployees, questionResponseRateResponseList);
+        return new ResponseEntity<>(resObj, HttpStatus.OK);
     }
 }
