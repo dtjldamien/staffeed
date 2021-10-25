@@ -1,7 +1,10 @@
 <Layout>
   <div>
     <h2>Welcome to Staffeed!</h2>
-    <LinkTo @route='login' class='button'>Login</LinkTo>
-    <LinkTo @route='survey' class='button'>Survey</LinkTo>
+    {{#if authManager.accessToken}}
+      <LinkTo @route='survey' class='button'>Survey</LinkTo>
+    {{else}}
+      <LinkTo @route='login' class='button'>Login</LinkTo>
+    {{/if}}
   </div>
 </Layout>

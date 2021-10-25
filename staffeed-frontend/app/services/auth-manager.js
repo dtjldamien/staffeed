@@ -9,30 +9,15 @@ export default class AuthManagerService extends Service {
       password: password,
     };
 
-    let fetchObject = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
+    axios.post('http://localhost:8080/auth/login', userData).then(
+      (res) => {
+        console.log(res.data);
+        this.set('accessToken', res.data.token);
       },
-      body: JSON.stringify(userData),
-    };
-    // fetch('https://gara6.bg/auto-api/users/login', fetchObject).then(
-    //   (result) => {
-    //     this.set('accessToken', result.access_token);
-    //   }
-    // );
-    const response = await fetch(
-      'http://localhost:8080/auth/login',
-      fetchObject
-    );
-    const data = await response.json();
-    console.log(data);
-    this.set('accessToken', data.token);
-
-    // axios.post('http://localhost:8080/auth/login', userData).then((res) => {
-    //   console.log(res.data);
-    //   this.set('accessToken', res.data.token);
-    // });
+    ).catch(err => {
+      console.log(err.response.status);
+      throw err
+    });
   }
 
   invalidate() {

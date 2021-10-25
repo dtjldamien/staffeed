@@ -11,13 +11,13 @@ export default class LoginController extends Controller {
 
   @action
   authenticate() {
-    this.authManager.authenticate(this.username, this.password).then(
-      () => {
-        alert('Success! Click the top link!');
-      },
-      (err) => {
-        alert('Error obtaining token: ' + err.responseText);
-      }
-    );
+    this.authManager
+      .authenticate(this.username, this.password)
+      .then((res) => {
+        this.transitionToRoute('index');
+      })
+      .catch((err) => {
+        console.log('Error obtaining token: ' + err.response.status);
+      });
   }
 }
