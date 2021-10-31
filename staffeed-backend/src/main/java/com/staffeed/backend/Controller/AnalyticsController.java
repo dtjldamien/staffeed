@@ -3,10 +3,8 @@ package com.staffeed.backend.Controller;
 import com.staffeed.backend.Model.Category;
 import com.staffeed.backend.Model.Employee;
 import com.staffeed.backend.Model.Question;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsCategoryResponse;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsDepartmentResponse;
-import com.staffeed.backend.Payload.Response.QuestionAnalyticsResponse;
-import com.staffeed.backend.Payload.Response.ResponseAnalyticsResponse;
+import com.staffeed.backend.Model.Response;
+import com.staffeed.backend.Payload.Response.*;
 import com.staffeed.backend.Repository.QuestionRepository;
 import com.staffeed.backend.Repository.ResponseRepository;
 import com.staffeed.backend.Repository.UserRepository;
@@ -38,8 +36,8 @@ public class AnalyticsController {
     public ResponseEntity<?> getResponseAnalytics() {
         List<Question> listOfQuestions = questionRepository.getAllQuestionsByLatest();
         System.out.println(listOfQuestions);
-        List<Integer> listOfResponses = responseRepository.findAllDistinctResponses();
-        Collections.sort(listOfResponses);
+//        List<Integer> listOfResponses = responseRepository.findAllDistinctResponses();
+//        Collections.sort(listOfResponses);
 
         double average = 0.0;
         double percentage;
@@ -136,13 +134,14 @@ public class AnalyticsController {
 
         List<QuestionAnalyticsCategoryResponse> list = new ArrayList<>();
         for (String category : listOfCategories) {
-            double average = 0.0;
+            double categoryAverage = 0.0;
+            double categoryTotal = 0.0;
             double percentage;
             List<QuestionAnalyticsResponse> questionAnalyticsResponseList = new ArrayList<>();
 
             List<Question> listOfQuestions = questionRepository.findByCategory(Category.valueOf(category));
             for (Question q : listOfQuestions) {
-                average = 0.0;
+                double questionAverage = 0.0;
                 List<ResponseAnalyticsResponse> responseAnalyticsList = new ArrayList<>();
                 List<String> listOfChoices = Arrays.asList(q.getOptions());
 
@@ -159,19 +158,43 @@ public class AnalyticsController {
                         percentage = 0.0;
                     }
 
-                    average += (percentage * choiceNum);
+                    questionAverage += (percentage * choiceNum);
                     ResponseAnalyticsResponse responseAnalyticsResponse = new ResponseAnalyticsResponse(choiceNum, choice, percentage);
                     responseAnalyticsList.add(responseAnalyticsResponse);
                 }
-
-                QuestionAnalyticsResponse questionAnalyticsResponse = new QuestionAnalyticsResponse(q, average, responseAnalyticsList);
+                categoryTotal += questionAverage;
+                QuestionAnalyticsResponse questionAnalyticsResponse = new QuestionAnalyticsResponse(q, questionAverage, responseAnalyticsList);
                 questionAnalyticsResponseList.add(questionAnalyticsResponse);
             }
 
-            QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), questionAnalyticsResponseList);
-            list.add(obj);
+            if (listOfQuestions.size() > 0) {
+                categoryAverage = categoryTotal / listOfQuestions.size();
+                QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), categoryAverage, questionAnalyticsResponseList);
+                list.add(obj);
+            } else {
+                QuestionAnalyticsCategoryResponse obj = new QuestionAnalyticsCategoryResponse(Category.valueOf(category), questionAnalyticsResponseList);
+                list.add(obj);
+            }
+
         }
 
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/response-rate")
+    public ResponseEntity<?> getResponseRate() {
+        List<Question> listOfQuestions = questionRepository.findAll();
+        long totalNumEmployees = userRepository.findAll().stream().filter(user -> user instanceof Employee).count();
+
+        List<QuestionResponseRateResponse> questionResponseRateResponseList = new ArrayList<>();
+        for (Question q : listOfQuestions) {
+            int responseListSize = responseRepository.findResponsesWithDistinctRespondents(q.getId()).size();
+            double responseRate = (double) responseListSize / (double) totalNumEmployees;
+            QuestionResponseRateResponse obj = new QuestionResponseRateResponse(responseRate, q);
+            questionResponseRateResponseList.add(obj);
+        }
+
+        OverallResponseRateResponse resObj = new OverallResponseRateResponse((int) totalNumEmployees, questionResponseRateResponseList);
+        return new ResponseEntity<>(resObj, HttpStatus.OK);
     }
 }
