@@ -2,13 +2,13 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class SurveyRoute extends Route {
-    @service session;
+  @service session;
 
-    beforeModel(transition) {
-        this.session.requireAuthentication(transition, 'login');
-    }
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
+  }
 
-    model() {
-        return this.setupController.findAll();
-    }
+  model() {
+    return this.setupController.findAll();
+  }
 }

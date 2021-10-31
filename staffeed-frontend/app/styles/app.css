@@ -53,5 +53,5 @@ input[type='radio']:checked + label:before {
 }
 
 textarea {
-    border: 3px solid #01cc65;
+  border: 3px solid #01cc65;
 }
