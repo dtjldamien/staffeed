@@ -1,10 +1,32 @@
 <Layout>
   <Container>
-    <h2 class='text-2xl font-medium'>Overview</h2>
+    <h1 class='text-2xl font-medium'>Overview</h1>
+    <p class='text-sm text-gray-400'>Welcome back to Staffeed</p>
   </Container>
   <Container>
-    <h2>Welcome to Staffeed!</h2>
-    <LinkTo @route='login' class='button'>Login</LinkTo>
-    <LinkTo @route='survey' class='button'>Survey</LinkTo>
+    <h2 class='text-xl text-gray-500 font-normal'>Pulse Surveys</h2>
+    <div class='flex gap-2 my-3'>
+      <Pulse::InfoBox @color='accent-red-1'>
+        <span class='text-6xl text-gray-700'>{{this.avgResponseRate}}</span>
+        <span class='text-gray-500'>%</span>
+        <h4 class='text-red-500 text-sm'>&darr; 48%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Response Rate</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='yellow-300'>
+        <span class='text-6xl text-gray-700'>{{this.avgRating}}</span>
+        <span class='text-gray-500'>/ 5</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 20%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Mood Rating</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='green-300'>
+        <span class='text-6xl text-gray-700'>{{this.numSurveys}}</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 17%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Active Surveys</h3>
+      </Pulse::InfoBox>
+    </div>
+    <LinkTo
+      @route='pulse'
+      class='text-accent-orange-4 underline float-right text-sm'
+    >View more >></LinkTo>
   </Container>
 </Layout>
