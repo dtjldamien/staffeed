@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 public class QuestionAnalyticsCategoryResponse {
     private Category category;
+    private double average;
 
     @DBRef(lazy = true)
     private List<QuestionAnalyticsResponse> questions;
@@ -20,5 +21,11 @@ public class QuestionAnalyticsCategoryResponse {
     public QuestionAnalyticsCategoryResponse(Category category, List<QuestionAnalyticsResponse> questions) {
         this.category = category;
         this.questions = questions;
+    }
+
+    public QuestionAnalyticsCategoryResponse(Category category, double average, List<QuestionAnalyticsResponse> questions) {
+        this.category = category;
+        this.questions = questions;
+        this.average = average;
     }
 }
