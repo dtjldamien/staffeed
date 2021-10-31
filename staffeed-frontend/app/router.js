@@ -12,4 +12,5 @@ Router.map(function () {
   this.route('pulse');
   this.route('meetings');
   this.route('productivity');
+  this.route('privacy');
 });
