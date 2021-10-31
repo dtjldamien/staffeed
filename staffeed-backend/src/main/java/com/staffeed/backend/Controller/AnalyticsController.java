@@ -188,7 +188,8 @@ public class AnalyticsController {
 
         List<QuestionResponseRateResponse> questionResponseRateResponseList = new ArrayList<>();
         for (Question q : listOfQuestions) {
-            int responseListSize = responseRepository.findResponsesWithDistinctRespondents(q.getId()).size();
+//            int responseListSize = responseRepository.findResponsesWithDistinctRespondents(q.getId()).size();
+            int responseListSize = q.getResponses().size();
             double responseRate = (double) responseListSize / (double) totalNumEmployees;
             QuestionResponseRateResponse obj = new QuestionResponseRateResponse(responseRate, q);
             questionResponseRateResponseList.add(obj);
