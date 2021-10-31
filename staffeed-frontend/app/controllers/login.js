@@ -6,11 +6,11 @@ export default Controller.extend({
   session: inject('session'),
 
   actions: {
-    authenticate: function() {
+    authenticate: function () {
       const credentials = this.getProperties('username', 'password');
       const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
 
       this.session.authenticate(authenticator, credentials);
-    }
-  }
+    },
+  },
 });
