@@ -1,6 +1,17 @@
 import Controller from '@ember/controller';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class PulseController extends Controller {
+  @tracked department = 'FINANCE';
+
+  departments = ['FINANCE', 'INVESTMENT', 'TECHNOLOGY'];
+
+  @action
+  setDepartment(event) {
+    this.department = event.target.value;
+  }
+
   get avgResponseRate() {
     console.log(this.model);
     let rate = this.model.responseRate.questions.reduce(
@@ -71,5 +82,46 @@ export default class PulseController extends Controller {
     });
     console.log(categories);
     return categories;
+  }
+
+  get departmentBreakdown() {
+    let depts = this.model.responseByDepartment.filter((dept) =>
+      this.departments.includes(dept.department)
+    );
+
+    depts = depts.map((dept) => {
+      let data = {
+        STRESS: [0, 0, 0, 0, 0],
+        WORKLOAD: [0, 0, 0, 0, 0],
+        SATISFACTION: [0, 0, 0, 0, 0],
+      };
+
+      dept.questions.forEach((question) => {
+        question.responses.forEach((res, index) => {
+          data[question.question.category][index] += res.percentage;
+        });
+      });
+
+      console.log(data);
+
+      let res = [];
+      for (const key in data) {
+        res.push({
+          name: key,
+          data: data[key],
+        });
+      }
+
+      return {
+        ...dept,
+        data: res,
+      };
+    });
+    depts = depts.reduce(
+      (prev, curr) => ({ ...prev, [curr.department]: curr }),
+      {}
+    );
+    console.log(depts[this.department]);
+    return depts[this.department];
   }
 }

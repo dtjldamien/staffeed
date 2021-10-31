@@ -44,4 +44,25 @@
       {{/each}}
     </div>
   </Container>
+  <Container>
+    <div class='flex justify-between'>
+      <h2 class='text-xl text-gray-500 font-normal'>Breakdown by Department</h2>
+      <div>
+        <span class='text-gray-500 text-sm mr-1' for='department-select'>Filter
+          by:</span>
+        <select
+          id='department-select'
+          class='text-sm text-gray-600'
+          {{on 'change' this.setDepartment}}
+        >
+          {{#each this.departments as |department|}}
+            <option>{{department}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class='my-2'>
+      <Pulse::ColumnChart @data={{this.departmentBreakdown.data}} />
+    </div>
+  </Container>
 </Layout>
