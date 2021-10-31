@@ -16,6 +16,14 @@ export default class PulseRoute extends Route {
     let { data: responsesByCategory } = await client.get(
       '/analytics/responses/categories'
     );
-    return { responseRate, responses, responsesByCategory };
+    let { data: responseByDepartment } = await client.get(
+      '/analytics/responses/department'
+    );
+    return {
+      responseRate,
+      responses,
+      responsesByCategory,
+      responseByDepartment,
+    };
   }
 }

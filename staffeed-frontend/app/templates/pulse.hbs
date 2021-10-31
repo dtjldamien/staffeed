@@ -32,12 +32,13 @@
       {{#each this.pieChartBreakdown as |category|}}
         <Pulse::InfoBox @styles='min-w-1/4'>
           <h3
-            class='text-sm font-medium text-gray-500 text-center'
+            class='font-medium text-gray-600 text-center'
           >{{category.category}}</h3>
           <Pulse::PieChart @data={{category.chartData}} />
           <div class='text-center'>
             <span class='text-3xl text-gray-700'>{{category.average}}</span>
             <span class='text-gray-500'>/ 5</span>
+            <h3 class='text-sm font-medium text-gray-400 text-center'>Avg</h3>
           </div>
         </Pulse::InfoBox>
       {{/each}}
