@@ -1,9 +1,9 @@
 // app/adapters/application.js
-import DS from 'ember-data';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { inject } from '@ember/service';
 import { computed } from '@ember/object';
 
-export default DS.JSONAPIAdapter.extend({
+export default JSONAPIAdapter.extend({
   session: inject('session'),
 
   namespace: 'api',
