@@ -10,4 +10,5 @@ Router.map(function () {
   this.route('login');
   this.route('survey');
   this.route('pulse');
+  this.route('meetings');
 });
