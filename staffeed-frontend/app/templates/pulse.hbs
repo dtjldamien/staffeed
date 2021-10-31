@@ -65,4 +65,12 @@
       <Pulse::ColumnChart @data={{this.departmentBreakdown.data}} />
     </div>
   </Container>
+  <Container>
+    <h2 class='text-xl text-gray-500 font-normal'>Breakdown by Questions</h2>
+    <div class='flex flex-col gap-1 my-2'>
+      {{#each this.responses as |response|}}
+        <Pulse::QuestionCard @data={{response}} />
+      {{/each}}
+    </div>
+  </Container>
 </Layout>

@@ -80,7 +80,6 @@ export default class PulseController extends Controller {
         ],
       };
     });
-    console.log(categories);
     return categories;
   }
 
@@ -102,8 +101,6 @@ export default class PulseController extends Controller {
         });
       });
 
-      console.log(data);
-
       let res = [];
       for (const key in data) {
         res.push({
@@ -121,7 +118,13 @@ export default class PulseController extends Controller {
       (prev, curr) => ({ ...prev, [curr.department]: curr }),
       {}
     );
-    console.log(depts[this.department]);
     return depts[this.department];
+  }
+
+  get responses() {
+    return this.model.responses.map((r) => ({
+      ...r,
+      average: r.average.toFixed(2),
+    }));
   }
 }
