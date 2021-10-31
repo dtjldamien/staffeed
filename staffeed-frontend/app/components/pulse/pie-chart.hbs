@@ -1,5 +1,8 @@
 <HighCharts
-  @content={{this.chartData}}
+  @content={{@data}}
   @chartOptions={{this.chartOptions}}
   @theme={{this.theme}}
 />
+{{#each @data as |datapoint|}}
+  {{datapoint.y}}
+{{/each}}

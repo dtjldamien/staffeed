@@ -27,4 +27,49 @@ export default class PulseController extends Controller {
   get numEmployees() {
     return this.model.responseRate.totalEmployees;
   }
+
+  get pieChartBreakdown() {
+    let categories = this.model.responsesByCategory.filter(
+      (cat) => cat.questions.length > 0
+    );
+
+    categories = categories.map((cat) => {
+      let responseCount = cat.questions.reduce(
+        (prevCount, qn) => {
+          qn.responses.forEach(
+            (res) => (prevCount[res.choiceNum] += res.percentage)
+          );
+          return prevCount;
+        },
+        {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+        }
+      );
+
+      let data = [];
+      Object.keys(responseCount).forEach((key) => {
+        data.push({
+          name: key,
+          y: (responseCount[key] /= cat.questions.length),
+        });
+      });
+      return {
+        ...cat,
+        average: cat.average.toFixed(2),
+        chartData: [
+          {
+            name: 'Response',
+            colorByPoint: true,
+            data: data,
+          },
+        ],
+      };
+    });
+    console.log(categories);
+    return categories;
+  }
 }
