@@ -11,4 +11,5 @@ Router.map(function () {
   this.route('survey');
   this.route('pulse');
   this.route('meetings');
+  this.route('productivity');
 });
