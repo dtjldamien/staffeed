@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 
 export default class LoginController extends Controller {
   @service('auth-manager') authManager;
+  @service('router') router;
 
   @tracked username = '';
   @tracked password = '';
@@ -14,10 +15,12 @@ export default class LoginController extends Controller {
     this.authManager
       .authenticate(this.username, this.password)
       .then((res) => {
-        this.transitionToRoute('index');
+        this.username = '';
+        this.password = '';
+        this.router.transitionTo('index');
       })
       .catch((err) => {
-        console.log('Error obtaining token: ' + err.response.status);
+        console.log('Error obtaining token: ' + err);
       });
   }
 }

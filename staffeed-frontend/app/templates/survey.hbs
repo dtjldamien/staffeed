@@ -1,10 +1,11 @@
 {{page-title 'Survey'}}
-{{outlet}}
-
-<div class='p-10'>
-  <h1>Survey Page</h1>
-  <div id='question-response' class='mx-4'>
-    <div class='container'>
+<Layout>
+  <Container>
+    <h2 class='text-2xl font-medium'>Survey</h2>
+    <p class='text-sm text-gray-400'>Share with us your thoughts and opinions</p>
+  </Container>
+  <Container>
+    <div id='question-response' class='mx-4'>
       <div>
         <p class='py-4'>I receive meaningful recognition for doing work</p>
         <div class='flex flex-row space-x-3'>
@@ -20,17 +21,6 @@
           <label for='radio5'>5</label>
         </div>
       </div>
-      <div>
-        <p class='py-4'>Things you would like to share with your manager</p>
-        <div class='flex flex-col'>
-          <textarea
-            id='textReview'
-            name='textReview'
-            rows='4'
-            cols='50'
-          ></textarea>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+  </Container>
+</Layout>
