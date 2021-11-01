@@ -12,8 +12,6 @@ module('Integration | Component | pulse/info-box', function (hooks) {
 
     await render(hbs`<Pulse::InfoBox />`);
 
-    assert.dom(this.element).hasText('');
-
     // Template block usage:
     await render(hbs`
       <Pulse::InfoBox>

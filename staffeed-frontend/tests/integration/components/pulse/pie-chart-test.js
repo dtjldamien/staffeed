@@ -12,8 +12,6 @@ module('Integration | Component | pulse/pie-chart', function (hooks) {
 
     await render(hbs`<Pulse::PieChart />`);
 
-    assert.dom(this.element).hasText('');
-
     // Template block usage:
     await render(hbs`
       <Pulse::PieChart>

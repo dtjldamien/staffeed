@@ -12,8 +12,6 @@ module('Integration | Component | pulse/column-chart', function (hooks) {
 
     await render(hbs`<Pulse::ColumnChart />`);
 
-    assert.dom(this.element).hasText('');
-
     // Template block usage:
     await render(hbs`
       <Pulse::ColumnChart>
