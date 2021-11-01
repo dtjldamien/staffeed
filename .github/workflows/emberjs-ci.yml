@@ -1,0 +1,58 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - staging/frontend
+  pull_request:
+    branches:
+      - main
+      - staging/frontend
+
+jobs:
+  lint:
+    name: Test Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: install dependencies
+        run: npm ci
+        working-directory: ./staffeed-frontend
+      - name: linting
+        run: npm run lint
+        working-directory: ./staffeed-frontend
+
+  ember-test:
+    name: Run Ember Testcases
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: install dependencies
+        run: npm ci
+        working-directory: ./staffeed-frontend
+      - name: build
+        run: npm run test:ember
+        working-directory: ./staffeed-frontend
+
+  build-test:
+    name: Test Production Build
+    runs-on: ubuntu-latest
+    needs: [ember-test, lint]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: install dependencies
+        run: npm ci
+        working-directory: ./staffeed-frontend
+      - name: build
+        run: npm run build
+        working-directory: ./staffeed-frontend
