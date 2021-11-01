@@ -5,22 +5,30 @@
     <p class='text-sm text-gray-400'>Share with us your thoughts and opinions</p>
   </Container>
   <Container>
-    <div id='question-response' class='mx-4'>
-      <div>
-        <p class='py-4'>I receive meaningful recognition for doing work</p>
-        <div class='flex flex-row space-x-3'>
-          <input type='radio' id='radio1' name='response' value='1' />
-          <label for='radio1'>1</label>
-          <input type='radio' id='radio2' name='response' value='2' />
-          <label for='radio2'>2</label>
-          <input type='radio' id='radio3' name='response' value='3' />
-          <label for='radio3'>3</label>
-          <input type='radio' id='radio4' name='response' value='4' />
-          <label for='radio4'>4</label>
-          <input type='radio' id='radio5' name='response' value='5' />
-          <label for='radio5'>5</label>
+    <Container>
+      {{#each this.model.questions as |question|}}
+        <div class='mb-4'>
+          <h3 class='text-xl font-medium'>{{question.description}}</h3>
+          <div class='flex flex-row space-x-3'>
+            <input type='radio' id='radio1' name='response' value='1' />
+            <label for='radio1'>1</label>
+            <input type='radio' id='radio2' name='response' value='2' />
+            <label for='radio2'>2</label>
+            <input type='radio' id='radio3' name='response' value='3' />
+            <label for='radio3'>3</label>
+            <input type='radio' id='radio4' name='response' value='4' />
+            <label for='radio4'>4</label>
+            <input type='radio' id='radio5' name='response' value='5' />
+            <label for='radio5'>5</label>
+          </div>
         </div>
-      </div>
-    </div>
+      {{/each}}
+    </Container>
+    <button
+      class='bg-black mt-4 hover:bg-accent-orange-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline h-10'
+      type='submit'
+    >
+      Submit
+    </button>
   </Container>
 </Layout>
