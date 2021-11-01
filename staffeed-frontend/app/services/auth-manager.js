@@ -9,15 +9,16 @@ export default class AuthManagerService extends Service {
       password: password,
     };
 
-    axios.post('http://localhost:8080/auth/login', userData).then(
-      (res) => {
+    axios
+      .post('http://localhost:8080/auth/login', userData)
+      .then((res) => {
         console.log(res.data);
         this.set('accessToken', res.data.token);
-      },
-    ).catch(err => {
-      console.log(err.response.status);
-      throw err
-    });
+      })
+      .catch((err) => {
+        console.log(err.response.status);
+        throw err;
+      });
   }
 
   invalidate() {
