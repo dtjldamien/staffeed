@@ -2,12 +2,14 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { inject } from '@ember/service';
 import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
 export default JSONAPIAdapter.extend({
   session: inject('session'),
 
   namespace: 'api',
   host: 'http://localhost:8080',
+  authManager: Ember.inject.service(),
 
   headers: computed(
     'session.isAuthenticated',

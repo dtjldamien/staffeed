@@ -17,7 +17,7 @@ module.exports = {
         'accent-orange-4': '#ffa352',
       },
       backgroundImage: {
-        'bg-cover': 'url(/images/bg.png)',
+        'bg-cover': "url('/images/bg.png')",
       },
     },
     minWidth: {
