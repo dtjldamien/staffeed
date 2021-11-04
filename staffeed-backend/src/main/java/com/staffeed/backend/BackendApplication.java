@@ -1,7 +1,8 @@
 package com.staffeed.backend;
 
+import com.staffeed.backend.Model.Category;
 import com.staffeed.backend.Repository.EmployeeRepository;
-import com.staffeed.backend.Repository.FeedbackRepository;
+import com.staffeed.backend.Repository.ResponseRepository;
 import com.staffeed.backend.Repository.QuestionRepository;
 import com.staffeed.backend.Repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,7 +25,7 @@ public class BackendApplication {
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
-    FeedbackRepository feedbackRepository;
+    ResponseRepository responseRepository;
     @Autowired
     QuestionRepository questionRepository;
 
@@ -38,19 +39,19 @@ public class BackendApplication {
 //            if (questionRepository.findAll().size() < 1) {
 //                Question question1 =
 //                        new Question("Question 1", "How are you feeling today?", new String[]{"1", "2", "3"},
-//                                LocalDateTime.now());
+//                                new Date(), Category.FINANCIAL);
 //                Question question2 =
 //                        new Question("Question 2", "Is the meeting productive just now?", new String[]{"1", "2", "3"}
-//                                , LocalDateTime.now());
+//                                , new Date(), Category.HEALTH);
 //                Question question3 =
 //                        new Question("Question 3", "Are you stressed at work?", new String[]{"1", "2", "3"},
-//                                LocalDateTime.now());
+//                                new Date(), Category.MOOD);
 //                Question question4 =
 //                        new Question("Question 4", "I have other things in mind", new String[]{"1", "2", "3"},
-//                                LocalDateTime.now());
+//                                new Date(), Category.MOTIVATION);
 //                Question question5 = new Question("Question 5", "I am overworked",
 //                        new String[]{"Strongly Agree", "Agree", "Neutral", "Disagree", "String Disagree"},
-//                        LocalDateTime.now());
+//                        new Date(), Category.STRESS);
 //                questionRepository.save(question1);
 //                questionRepository.save(question2);
 //                questionRepository.save(question3);
