@@ -14,7 +14,7 @@ export default class PulsePieChartComponent extends Highcharts {
       text: '',
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+      pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>',
     },
     plotOptions: {
       pie: {
