@@ -5,6 +5,150 @@
     <p class='text-sm text-gray-400'>Employee Privacy Settings</p>
   </Container>
   <Container>
-    <h2>Placeholder</h2>
+    <h2 class='text-xl text-red-500 font-normal'>Mandatory</h2>
+    <p class='text-sm text-gray-400'>Mandatory Data Collected</p>
+    <ul class='list-disc list-inside'>
+      <li class='text-l font-medium text-gray-600 my-2'>
+        Company Laptop Analytics
+      </li>
+      <li class='text-l font-medium text-gray-600 my-2'>
+        Zoom Data Collection
+      </li>
+      <li class='text-l font-medium text-gray-600 my-2'>
+        Browser History and Cache
+      </li>
+    </ul>
+  </Container>
+  <Container>
+    <h2 class='text-xl text-green-500 font-normal'>Optional</h2>
+    <p class='text-sm text-gray-400'>Optional Data Collected</p>
+    <div class='flex w-100 justify-between my-4 align-center'>
+      <div class='h-5 text-l font-medium text-gray-600 my-1'>Calender Tracking</div>
+      <div
+        class='flex justify-center items-center cursor-pointer'
+        {{action 'setToggle1'}}
+      >
+        {{#if this.toggle1}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1 bg-blue-700'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform translate-x-7'
+            ></div>
+          </div>
+        {{else}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform'
+            ></div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class='flex w-100 justify-between my-4 align-center'>
+      <div class='h-5 text-l font-medium text-gray-600 my-1'>Budget Usage</div>
+      <div
+        class='flex justify-center items-center cursor-pointer'
+        {{action 'setToggle2'}}
+      >
+        {{#if this.toggle2}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1 bg-blue-700'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform translate-x-7'
+            ></div>
+          </div>
+        {{else}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform'
+            ></div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class='flex w-100 justify-between my-4 align-center'>
+      <div class='h-5 text-l font-medium text-gray-600 my-1'>Key Performance
+        Tracking</div>
+      <div
+        class='flex justify-center items-center cursor-pointer'
+        {{action 'setToggle3'}}
+      >
+        {{#if this.toggle3}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1 bg-blue-700'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform translate-x-7'
+            ></div>
+          </div>
+        {{else}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform'
+            ></div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class='flex w-100 justify-between my-4 align-center'>
+      <div class='h-5 text-l font-medium text-gray-600 my-1'>Time in Office</div>
+      <div
+        class='flex justify-center items-center cursor-pointer'
+        {{action 'setToggle4'}}
+      >
+        {{#if this.toggle4}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1 bg-blue-700'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform translate-x-7'
+            ></div>
+          </div>
+        {{else}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform'
+            ></div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class='flex w-100 justify-between my-4 align-center'>
+      <div class='h-5 text-l font-medium text-gray-600 my-1'>
+        Microsoft Teams Chat
+      </div>
+      <div
+        class='flex justify-center items-center cursor-pointer'
+        {{action 'setToggle4'}}
+      >
+        {{#if this.toggle4}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1 bg-blue-700'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform translate-x-7'
+            ></div>
+          </div>
+        {{else}}
+          <div
+            class='w-14 h-7 flex items-center bg-gray-300 rounded-full mx-3 px-1'
+          >
+            <div
+              class='bg-white w-5 h-5 rounded-full shadow-md transform'
+            ></div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
   </Container>
 </Layout>
