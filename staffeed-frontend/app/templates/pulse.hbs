@@ -1,0 +1,76 @@
+{{page-title 'Pulse'}}
+<Layout>
+  <Container>
+    <h2 class='text-2xl font-medium'>Pulse</h2>
+    <p class='text-sm text-gray-400'>Employee Pulse Survey Responses</p>
+  </Container>
+  <Container>
+    <h2 class='text-xl text-gray-500 font-normal'>At A Glance</h2>
+    <div class='flex gap-2 my-3'>
+      <Pulse::InfoBox @color='accent-red-1'>
+        <span class='text-5xl text-gray-700'>{{this.avgResponseRate}}</span>
+        <span class='text-gray-500'>%</span>
+        <h4 class='text-red-500 text-sm'>&darr; 48%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Response Rate</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='yellow-300'>
+        <span class='text-5xl text-gray-700'>{{this.avgRating}}</span>
+        <span class='text-gray-500'>/ 5</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 20%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Mood Rating</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='green-300'>
+        <span class='text-5xl text-gray-700'>{{this.numSurveys}}</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 17%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Active Surveys</h3>
+      </Pulse::InfoBox>
+    </div>
+  </Container>
+  <Container>
+    <h2 class='text-xl text-gray-500 font-normal'>Responses Breakdown by Metric</h2>
+    <div class='flex flex-wrap gap-2 my-3'>
+      {{#each this.pieChartBreakdown as |category|}}
+        <Pulse::InfoBox @styles='min-w-1/4'>
+          <h3
+            class='font-medium text-gray-600 text-center'
+          >{{category.category}}</h3>
+          <Pulse::PieChart @data={{category.chartData}} />
+          <div class='text-center'>
+            <span class='text-3xl text-gray-700'>{{category.average}}</span>
+            <span class='text-gray-500'>/ 5</span>
+            <h3 class='text-sm font-medium text-gray-400 text-center'>Avg</h3>
+          </div>
+        </Pulse::InfoBox>
+      {{/each}}
+    </div>
+  </Container>
+  <Container>
+    <div class='flex justify-between'>
+      <h2 class='text-xl text-gray-500 font-normal'>Breakdown by Department</h2>
+      <div>
+        <span class='text-gray-500 text-sm mr-1' for='department-select'>Filter
+          by:</span>
+        <select
+          id='department-select'
+          class='text-sm text-gray-600'
+          {{on 'change' this.setDepartment}}
+        >
+          {{#each this.departments as |department|}}
+            <option>{{department}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class='my-2'>
+      <Pulse::ColumnChart @data={{this.departmentBreakdown.data}} />
+    </div>
+  </Container>
+  <Container>
+    <h2 class='text-xl text-gray-500 font-normal'>Breakdown by Questions</h2>
+    <div class='flex flex-col gap-1 my-2'>
+      {{#each this.responses as |response|}}
+        <Pulse::QuestionCard @data={{response}} />
+      {{/each}}
+    </div>
+  </Container>
+</Layout>

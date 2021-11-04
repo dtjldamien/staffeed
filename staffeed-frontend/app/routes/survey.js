@@ -1,14 +1,22 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import axios from 'axios';
 
 export default class SurveyRoute extends Route {
-    @service session;
+  @service('auth-manager') authManager;
 
-    beforeModel(transition) {
-        this.session.requireAuthentication(transition, 'login');
-    }
+  async model() {
+    const client = axios.create({
+      baseURL: 'http://localhost:8080',
+      headers: {
+        Authorization: `Bearer ${this.authManager.accessToken}`,
+      },
+    });
 
-    model() {
-        return this.setupController.findAll();
-    }
+    let { data: questions } = await client.get('/questions');
+
+    return {
+      questions,
+    };
+  }
 }

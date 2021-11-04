@@ -1,0 +1,28 @@
+<div class='min-w-full shadow bg-gray-100 p-3'>
+  <h5 class='text-gray-500 text-xs font-medium'>{{@data.question.category}}</h5>
+  <h4 class='text-gray-700'>{{@data.question.description}}</h4>
+  <h5 class='text-gray-500 text-sm'><b>Avg. Response:</b>
+    {{@data.average}}/5</h5>
+  <div class='min-w-full my-2 h-5 flex align-center'>
+    <div
+      class='text-center text-xs h-100 bg-pink-100'
+      style='width: calc(100% * {{@data.responses.0.percentage}})'
+    >1</div>
+    <div
+      class='text-center text-xs h-100 bg-pink-200'
+      style='width: calc(100% * {{@data.responses.1.percentage}})'
+    >2</div>
+    <div
+      class='text-center text-xs h-100 bg-pink-400'
+      style='width: calc(100% * {{@data.responses.2.percentage}})'
+    >3</div>
+    <div
+      class='text-center text-xs h-100 bg-pink-500'
+      style='width: calc(100% * {{@data.responses.3.percentage}})'
+    >4</div>
+    <div
+      class='text-center text-xs h-100 bg-pink-700'
+      style='width: calc(100% * {{@data.responses.4.percentage}})'
+    >5</div>
+  </div>
+</div>

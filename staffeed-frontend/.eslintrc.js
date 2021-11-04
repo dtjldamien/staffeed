@@ -18,8 +18,16 @@ module.exports = {
   ],
   env: {
     browser: true,
+    node: true,
   },
-  rules: {},
+  rules: {
+    'ember/no-classic-classes': 'off',
+    'ember/use-brace-expansion': 'off',
+    'ember/no-actions-hash': 'off',
+    'ember/no-get': 'off',
+    'ember/classic-decorator-hooks': 'error',
+    'ember/classic-decorator-no-classic-methods': 'error',
+  },
   overrides: [
     // node files
     {
@@ -47,6 +55,7 @@ module.exports = {
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off',
+        'ember/no-classic-classes': 'off',
       },
     },
     {

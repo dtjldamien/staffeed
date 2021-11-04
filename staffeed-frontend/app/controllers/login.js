@@ -1,16 +1,26 @@
-// app/controllers/login.js
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
-export default Controller.extend({
-  session: inject('session'),
+export default class LoginController extends Controller {
+  @service('auth-manager') authManager;
+  @service('router') router;
 
-  actions: {
-    authenticate: function() {
-      const credentials = this.getProperties('username', 'password');
-      const authenticator = 'authenticator:jwt'; // or 'authenticator:jwt'
+  @tracked username = '';
+  @tracked password = '';
 
-      this.session.authenticate(authenticator, credentials);
-    }
+  @action
+  authenticate() {
+    this.authManager
+      .authenticate(this.username, this.password)
+      .then(() => {
+        this.username = '';
+        this.password = '';
+        this.router.transitionTo('index');
+      })
+      .catch((err) => {
+        console.log('Error obtaining token: ' + err);
+      });
   }
-});
+}
