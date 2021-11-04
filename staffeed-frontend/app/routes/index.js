@@ -6,7 +6,6 @@ export default class IndexRoute extends Route {
   @service('auth-manager') authManager;
 
   async model() {
-    console.log(this.authManager.accessToken);
     const client = axios.create({
       baseURL: 'http://localhost:8080',
       headers: {

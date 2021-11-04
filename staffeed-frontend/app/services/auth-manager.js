@@ -5,6 +5,7 @@ import axios from 'axios';
 @classic
 export default class AuthManagerService extends Service {
   accessToken = null;
+  userId = null;
 
   async authenticate(username, password) {
     let userData = {
@@ -12,10 +13,11 @@ export default class AuthManagerService extends Service {
       password: password,
     };
 
-    axios
+    await axios
       .post('http://localhost:8080/auth/login', userData)
       .then((res) => {
-        console.log(res.data);
+        this.set('userId', res.data.id);
+        console.log(this.userId);
         this.set('accessToken', res.data.token);
       })
       .catch((err) => {
@@ -26,6 +28,7 @@ export default class AuthManagerService extends Service {
 
   invalidate() {
     this.set('accessToken', null);
+    this.set('id', null);
   }
 
   isAuthenticated = bool('accessToken');
