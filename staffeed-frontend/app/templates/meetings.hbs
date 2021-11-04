@@ -3,8 +3,28 @@
   <Container>
     <h2 class='text-2xl font-medium'>Zoom Meetings</h2>
     <p class='text-sm text-gray-400'>Zoom Engagement Analytics and Metrics</p>
+  </Container><Container>
+    <h2 class='text-xl text-gray-500 font-normal'>At A Glance</h2>
+    <div class='flex gap-2 my-3'>
+      <Pulse::InfoBox @color='accent-red-1'>
+        <span class='text-5xl text-gray-700'>01:25</span>
+        <span class='text-gray-500'>hrs</span>
+        <h4 class='text-red-500 text-sm'>&darr; 11%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Meeting Duration</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='yellow-300'>
+        <span class='text-5xl text-gray-700'>40.6</span>
+        <span class='text-gray-500'>%</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 7%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Avg. Participation Rate</h3>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @color='green-300'>
+        <span class='text-5xl text-gray-700'>98</span>
+        <span class='text-gray-500'>%</span>
+        <h4 class='text-green-500 text-sm'>&uarr; 17%</h4>
+        <h3 class='text-sm font-medium text-gray-500'>Attendance Rate</h3>
+      </Pulse::InfoBox>
+    </div>
   </Container>
-  <Container>
-    <h2>Placeholder</h2>
-  </Container>
+  <Meetings::Table />
 </Layout>
