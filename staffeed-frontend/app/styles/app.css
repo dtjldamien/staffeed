@@ -13,3 +13,14 @@ body {
   top: 50%;
   left: 50%;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.main-div::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main-div {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

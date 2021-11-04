@@ -12,7 +12,7 @@ export default class AuthManagerService extends Service {
       password: password,
     };
 
-    axios
+    await axios
       .post('http://localhost:8080/auth/login', userData)
       .then((res) => {
         console.log(res.data);
