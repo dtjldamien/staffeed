@@ -29,4 +29,49 @@
       class='text-accent-orange-4 underline float-right text-sm'
     >View more >></LinkTo>
   </Container>
+  <Row>
+    <HalfContainer>
+      <h2 class='text-xl text-gray-500 font-normal'>Zoom Meetings</h2>
+      <div class='flex align-center my-2'>
+        <span class='h-3 w-3 relative mr-4'>
+          <span
+            class='absolute top-1/2 left-2/4 animate-ping inline-flex h-full w-full rounded-full bg-red-400 opacity-75'
+          ></span>
+          <span
+            class='absolute top-1/2 left-2/4 inline-flex rounded-full h-3 w-3 bg-red-500'
+          ></span>
+        </span>
+        <span class='flex-1 font-medium text-gray-400'>
+          5 ongoing meetings
+        </span>
+      </div>
+      <Pulse::InfoBox @color=''>
+        <span class='text-5xl text-gray-700'>27</span>
+        <h3 class='text-sm font-medium text-gray-500'>Meetings Scheduled Today</h3>
+      </Pulse::InfoBox>
+      <LinkTo
+        @route='meetings'
+        class='text-accent-orange-4 underline float-right text-sm my-2'
+      >View more >></LinkTo>
+    </HalfContainer>
+    <HalfContainer>
+      <h2 class='text-xl text-gray-500 font-normal mb-2 flex justify-between'>
+        Employees
+        <LinkTo
+          @route='productivity'
+          class='text-accent-orange-4 font-extralight underline float-right text-sm self-end'
+        >View more >></LinkTo>
+      </h2>
+
+      <Pulse::InfoBox @styles='min-w-1/4'>
+        <Pulse::PieChart @data={{this.mockPieChartData}} />
+        <div class='text-center'>
+          <span class='text-3xl text-gray-700'>40.6%</span>
+          <h3 class='text-sm font-medium text-gray-400 text-center'>
+            Employees Working Overtime
+          </h3>
+        </div>
+      </Pulse::InfoBox>
+    </HalfContainer>
+  </Row>
 </Layout>

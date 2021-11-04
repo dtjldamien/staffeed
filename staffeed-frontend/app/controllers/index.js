@@ -26,4 +26,25 @@ export default class IndexController extends Controller {
   get numEmployees() {
     return this.model.responseRate.totalEmployees;
   }
+
+  get mockPieChartData() {
+    return [
+      {
+        name: 'Working Hours',
+        colorByPoint: true,
+        data: [
+          {
+            name: 'Overtime',
+            y: 40.6,
+            sliced: true,
+            selected: true,
+          },
+          {
+            name: 'On Time',
+            y: 59.4,
+          },
+        ],
+      },
+    ];
+  }
 }
