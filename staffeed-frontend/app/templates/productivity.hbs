@@ -5,6 +5,61 @@
     <p class='text-sm text-gray-400'>Working Hours, Overtime and Breakdown</p>
   </Container>
   <Container>
-    <h2>Placeholder</h2>
+    <h2 class='text-xl text-gray-500 font-normal'>Breakdown by Week</h2>
+    <div class='flex align-center my-2'>
+      <span class='h-3 w-3 relative mr-4'>
+        <span
+          class='absolute top-1/2 left-2/4 animate-ping inline-flex h-full w-full rounded-full bg-red-400 opacity-75'
+        ></span>
+        <span
+          class='absolute top-1/2 left-2/4 inline-flex rounded-full h-3 w-3 bg-red-500'
+        ></span>
+      </span>
+      <span class='flex-1 font-medium text-gray-400'>
+        70% of employees working overtime
+      </span>
+    </div>
+    <div class='flex flex-wrap gap-2 my-3'>
+      <Pulse::InfoBox @styles='min-w-1/5'>
+        <h3 class='font-medium text-gray-600 text-center'></h3>
+        <Pulse::PieChart @data={{this.mockPieChartData1}} />
+        <div class='text-center'>
+          <h3 class='text-sm font-medium text-gray-400 text-center'>
+            4 Oct - 8 Oct
+          </h3>
+        </div>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @styles='min-w-1/5'>
+        <h3 class='font-medium text-gray-600 text-center'></h3>
+        <Pulse::PieChart @data={{this.mockPieChartData2}} />
+        <div class='text-center'>
+          <h3 class='text-sm font-medium text-gray-400 text-center'>
+            11 Oct - 15 Oct
+          </h3>
+        </div>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @styles='min-w-1/5'>
+        <h3 class='font-medium text-gray-600 text-center'></h3>
+        <Pulse::PieChart @data={{this.mockPieChartData3}} />
+        <div class='text-center'>
+          <h3 class='text-sm font-medium text-gray-400 text-center'>
+            18 Oct - 22 Oct
+          </h3>
+        </div>
+      </Pulse::InfoBox>
+      <Pulse::InfoBox @styles='min-w-1/5'>
+        <h3 class='font-medium text-gray-600 text-center'></h3>
+        <Pulse::PieChart @data={{this.mockPieChartData4}} />
+        <div class='text-center'>
+          <h3 class='text-sm font-medium text-gray-400 text-center'>
+            25 Oct - 29 Oct
+          </h3>
+        </div>
+      </Pulse::InfoBox>
+    </div>
+  </Container>
+  <Container>
+    <h2 class='text-xl text-gray-500 font-normal mb-2'>Breakdown by Team</h2>
+    <Productivity::StackedBarChart />
   </Container>
 </Layout>
