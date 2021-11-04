@@ -8,7 +8,7 @@
     <h2 class='text-2xl font-medium'>Survey</h2>
     <p class='text-sm text-gray-400'>Share with us your thoughts and opinions</p>
   </Container>
-  {{#unless isSubmitted}}
+  {{#unless this.isSubmitted}}
     <form
       {{action 'submit' on='submit'}}
       class='bg-white rounded px-8 pt-6 pb-8 mb-4 shadow-2xl'
@@ -23,6 +23,7 @@
                 id='{{question.id}}{{option}}'
                 name='{{question.id}}'
                 value='{{option}}'
+                {{action "optionToggled" question.id option on='change'}}
               />
               <label for='{{question.id}}{{option}}'>{{option}}</label>
             {{/each}}
@@ -37,7 +38,7 @@
       </button>
     </form>
   {{/unless}}
-  {{#if isSubmitted}}
+  {{#if this.isSubmitted}}
     <Container>
       <h2 class='text-2xl font-medium'>Thank you for your feedback!</h2>
       <p class='text-sm text-gray-400'>Keep a lookout for our next survey!</p>
