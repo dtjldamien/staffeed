@@ -1,5 +1,8 @@
 import Service from '@ember/service';
+import { bool } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
 import axios from 'axios';
+@classic
 export default class AuthManagerService extends Service {
   accessToken = null;
 
@@ -25,5 +28,5 @@ export default class AuthManagerService extends Service {
     this.set('accessToken', null);
   }
 
-  isAuthenticated = Ember.computed.bool('accessToken');
+  isAuthenticated = bool('accessToken');
 }

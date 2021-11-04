@@ -14,7 +14,7 @@ export default class LoginController extends Controller {
   authenticate() {
     this.authManager
       .authenticate(this.username, this.password)
-      .then((res) => {
+      .then(() => {
         this.username = '';
         this.password = '';
         this.router.transitionTo('index');

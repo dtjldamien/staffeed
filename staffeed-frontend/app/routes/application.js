@@ -1,6 +1,8 @@
-export default Ember.Route.extend({
+import Route from '@ember/routing/route';
+
+export default Route.extend({
   actions: {
-    error: function (reason, transition) {
+    error: function () {
       this.transitionTo('/login');
       return false;
     },

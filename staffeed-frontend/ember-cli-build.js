@@ -20,10 +20,10 @@ module.exports = function (defaults) {
     outputPaths: {
       app: {
         css: {
-          '_survey': './app/styles/_survey.css'
-        }
-      }
-    }
+          _survey: './app/styles/_survey.css',
+        },
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated

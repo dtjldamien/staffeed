@@ -14,7 +14,7 @@ export default class SurveyRoute extends Route {
     });
 
     let { data: questions } = await client.get('/questions');
-    
+
     return {
       questions,
     };

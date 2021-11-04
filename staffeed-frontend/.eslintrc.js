@@ -25,6 +25,8 @@ module.exports = {
     'ember/use-brace-expansion': 'off',
     'ember/no-actions-hash': 'off',
     'ember/no-get': 'off',
+    'ember/classic-decorator-hooks': 'error',
+    'ember/classic-decorator-no-classic-methods': 'error',
   },
   overrides: [
     // node files
